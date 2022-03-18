@@ -157,6 +157,7 @@ ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'account_email_confirmation_done'
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'account_email_confirmation_done'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ' ' # allauth 발송 이메일 제목에 있는 도메인 제거
 
 # Email settings
 
