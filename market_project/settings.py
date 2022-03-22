@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'market',
     'widget_tweaks',
+    'member',
+    'shop',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -106,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
     #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     # },
     {
-        'NAME': 'market.validators.CustomPasswordValidator',
+        'NAME': 'member.validators.CustomPasswordValidator',
     },
 ]
 
@@ -133,7 +134,7 @@ STATIC_URL = '/static/'
 
 # Auth settings
 
-AUTH_USER_MODEL = 'market.User'
+AUTH_USER_MODEL = 'member.User'
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -152,7 +153,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_COOKIE_AGE = 3600
-ACCOUNT_SIGNUP_FORM_CLASS = 'market.forms.SignupForm'
+ACCOUNT_SIGNUP_FORM_CLASS = 'member.forms.SignupForm'
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'account_email_confirmation_done'
