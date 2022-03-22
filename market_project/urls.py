@@ -16,25 +16,30 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from market.views import CustomPasswordChangeView
+from member.views import CustomPasswordChangeView
 
 urlpatterns = [
     # admin
     path('admin/', admin.site.urls),
     
-    # market
-    path('', include('market.urls')),
+    # shop
+    path('', include('shop.urls')),
+    
+    # member
+    path('', include('member.urls')),
     
     # allauth
     path(
         'email-confirmation-done/',
-        TemplateView.as_view(template_name='market/email_confirmation_done.html'),
+        TemplateView.as_view(template_name='member/email_confirmation_done.html'),
         name='account_email_confirmation_done'
     ),
+
     path(
         'password/change/', 
         CustomPasswordChangeView.as_view(), 
         name='account_change_password'
     ),
-    path('', include('allauth.urls')),
+
+    path('', include('allauth.urls')), 
 ]
