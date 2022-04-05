@@ -10,4 +10,6 @@ class SignupForm(forms.ModelForm):
     def signup(self, request, user):
         user.nickname = self.cleaned_data['nickname']
         user.address = self.cleaned_data['address']
+        user.lat = float(request.session['lat'])
+        user.lon = float(request.session['lon'])
         user.save()
