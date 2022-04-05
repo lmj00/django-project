@@ -18,6 +18,13 @@ class User(AbstractUser):
         null=True,
     )
 
+    lat = models.FloatField(
+        null=True
+    )
+
+    lon = models.FloatField(
+        null=True
+    )
 
     def __str__(self):
         return self.email
