@@ -26,6 +26,7 @@
 <button onclick="addressCheck();">확인</button>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -83,7 +84,9 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
             // 클릭한 위도, 경도 정보를 가져옵니다 
             var latlng = mouseEvent.latLng; 
-            
+            var loc = latlng.getLat() + ' ' + latlng.getLng();
+            sessionStorage.setItem('latlng', loc);
+
             // 마커 위치를 클릭한 위치로 옮깁니다
             var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
             message += '경도는 ' + latlng.getLng() + ' 입니다';
@@ -167,10 +170,25 @@ if (navigator.geolocation) {
     });
     
 }
-
 function addressCheck() {
-    opener.document.getElementById('id_address').value = document.getElementById('addr').value
-    window.close();
+    opener.document.getElementById('id_address').value = document.getElementById('addr').value;
+
+    let param = {
+        'session': sessionStorage.getItem('latlng')
+    }
+
+    $.ajax({
+        type: 'POST',
+        url : 'test',
+        data: JSON.stringify(param), 
+        success: function (data) {
+            window.close();
+        },
+        error: function(request, status, error){
+            // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+    });
+
 }
 </script>
 </body>
