@@ -1,0 +1,84 @@
+.map_wrap {
+    position:relative;
+    width:100%;
+    height:600px;
+    }
+
+    .title {
+    
+    font-weight: bold;
+    display: block;
+    
+    }
+    
+    .hAddr {
+
+    position:absolute;
+    left:10px;
+    top:10px;
+    border-radius: 2px;
+    background:#fff;
+    background:rgba(255,255,255,0.8);
+    z-index:1;
+    padding:5px;
+    }
+
+    #centerAddr {
+        
+    display:block;
+    margin-top:2px;
+    font-weight: normal;
+    }
+    
+    .bAddr {
+        
+     padding:5px;
+     text-overflow: ellipsis;
+     overflow: hidden;
+     white-space: nowrap;
+    }  
+
+    .textbox{
+
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    padding: 12px 0;
+    margin: 0px 0; /* 원래 30*/
+    border-bottom: 1px solid #b9b9b9;
+    }
+
+    .textbox i{
+    width: 26px;
+    float: left;
+    text-align: center;
+    }
+
+    .btn{
+
+    width: 100%;
+    height: 58px;
+    color: white;
+    padding: 0px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 12px 0;
+    border:0px solid white;
+    border-radius: 1.2rem;
+    background-image: linear-gradient(273deg, #8400ff,#a25df4);
+    }
+
+    #addr{    
+
+    width: 97%;
+    height: 20px;
+    font-size: 20px;
+    border-radius: 8px;
+    border-top: 1px solid #b9b9b9;
+    border-left: 1px solid #b9b9b9;
+    border-right: 1px solid #b9b9b9;
+    overflow: hidden;
+    padding: 10px;
+
+
+    }
