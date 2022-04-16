@@ -1,33 +1,63 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>test</title>
+        <title>Login Form</title>
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+
+        <!-- 합쳐지고 최소화된 최신 CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+        <!-- 부가적인 테마 -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+        <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        
+        <link rel ="stylesheet" type="text/css" href="{% static 'member/styles/login.css' %}">
     </head>
     
     {% load widget_tweaks %}
 
 <body>
+    <div class="login-box">
+        <h1>Login</h1>
+
     <form method="post">
         {% csrf_token %}
-        {% for error in form.non_field_errors %}
+        <div class="textbox">
+            <i class="fas fa-user"></i>
+            
+            <!-- <input type="text" placeholder="이메일을 입력해 주세요." name="" value="" maxlength="100"> -->
+            {% for error in form.non_field_errors %}
             <div class="form-error error-message">{{ error }}</div>
         {% endfor %}
         <div>
-            {{ form.login|add_class:"market-input"|attr:"placeholder:이메일"|add_error_class:"error" }}
+            {{ form.login|add_class:"market-input"|attr:"placeholder:이메일을 입력해 주세요."|add_error_class:"error" }}
             {% for error in form.login.errors %}
                 <div class="form-error error-message">{{ error }}</div>
             {% endfor %}
-        </div>
+        </div>  
+        </div>  
+        
         <p>
-        <div>
-            {{ form.password|add_class:"market-input"|attr:"placeholder:이메일"|add_error_class:"error"}}
+        <div class="textbox">
+            
+            <i class="fas fa-lock"></i>
+            <!-- <input type="password" placeholder="비밀번호를 입력해 주세요." name="" value=""> -->
+               
+              
+            {{ form.password|add_class:"market-input"|attr:"placeholder:비밀번호를 입력해 주세요."|add_error_class:"error"}}
             {% for error in form.password.errors %}
                 <div class="form-error error-message">{{ error }}</div>
             {% endfor %}
         </div>
-        <button class="market-button" type="submit">로그인</button>
+        <!-- <button class="market-button" type="submit">로그인</button> -->
+        <input class="btn" type="button" name="" value="로그인">
     </form>
 
     <div class="info">
