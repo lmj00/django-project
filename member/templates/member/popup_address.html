@@ -18,8 +18,7 @@
         <span id="centerAddr"></span>
     </div>
 </div>
-<div id="clickLatlng"></div>    
-
+<div id="clickLatlng"></div> 
 <input type="text" id="addr" name="addr" readonly>
 <button class="btn" onclick="addressCheck();">확인</button>
 
@@ -72,6 +71,8 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
                 test2 += test[i] + ' ';
             }
 
+            localStorage.setItem('detailAddr', test2.trim());
+
             // 마커를 클릭한 위치에 표시합니다 
             marker.setPosition(mouseEvent.latLng);
             marker.setMap(map);
@@ -83,8 +84,10 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             // 클릭한 위도, 경도 정보를 가져옵니다 
             var latlng = mouseEvent.latLng; 
             var loc = latlng.getLat() + ' ' + latlng.getLng();
-            sessionStorage.setItem('latlng', loc);
+            // localStorage.setItem('latlng', loc);
+            localStorage.setItem('latlng', loc);
 
+            
             // 마커 위치를 클릭한 위치로 옮깁니다
             // var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
             // message += '경도는 ' + latlng.getLng() + ' 입니다';
@@ -168,12 +171,16 @@ if (navigator.geolocation) {
     });
     
 }
+
+
 function addressCheck() {
-    opener.document.getElementById('id_address').value = document.getElementById('addr').value;
+    opener.document.getElementById('id_address').value = localStorage.getItem('detailAddr')
 
     let param = {
-        'session': sessionStorage.getItem('latlng')
+        'sessionLatlng': localStorage.getItem('latlng'),
+        'sessionAddr': localStorage.getItem('detailAddr')
     }
+
 
     $.ajax({
         type: 'POST',
@@ -183,11 +190,13 @@ function addressCheck() {
             window.close();
         },
         error: function(request, status, error){
+            alert('주소를 찾아주세요.')
             // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
     });
 
 }
+
 </script>
 </body>
 </html>
