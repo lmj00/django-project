@@ -15,9 +15,9 @@ class Post(models.Model):
         validators=[MinValueValidator(1)]
     ) 
 
-    image1 = models.ImageField()
-    image2 = models.ImageField(blank=True)
-    image3 = models.ImageField(blank=True)
+    image1 = models.ImageField(upload_to="post_pics")
+    image2 = models.ImageField(upload_to="post_pics", blank=True)
+    image3 = models.ImageField(upload_to="post_pics", blank=True)
 
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     dt_created = models.DateTimeField(auto_now=True)
