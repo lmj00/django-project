@@ -13,5 +13,10 @@ urlpatterns = [
         'posts/new/', 
         views.PostCreateView.as_view(),
         name='post-create'
+    ),
+    path(
+        'posts/<int:post_id>/edit/',
+        views.PostUpdateView.as_view(),
+        name='post-update'
     )
 ]
