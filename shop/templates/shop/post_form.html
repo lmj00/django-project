@@ -23,6 +23,9 @@
         </div>
         <div class="file">
             <div class="file-input">
+                {% if post.image1 %}
+                    <img src="{{ post.image1.url}}">
+                {% endif %}
                 {{ form.image1 }}
                 {% for error in form.image1.errors %}
                     <div class="error-message">{{ error }}</div>
@@ -31,6 +34,9 @@
         </div>
         <div class="file">
             <div class="file-input">
+                {% if post.image2 %}
+                    <img src="{{ post.image2.url}}">
+                {% endif %}
                 {{ form.image2 }}
                 {% for error in form.image2.errors %}
                     <div class="error-message">{{ error }}</div>
@@ -39,6 +45,9 @@
         </div>
         <div class="file">
             <div class="file-input">
+                {% if post.image3 %}
+                    <img src="{{ post.image3.url}}">
+                {% endif %}
                 {{ form.image3 }}
                 {% for error in form.image3.errors %}
                     <div class="error-message">{{ error }}</div>
@@ -47,7 +56,10 @@
         </div>
 
         <div class="buttons">
-            <a class="podo-button large secondary cancel" href="#">취소</a>
+            <a class="podo-button large secondary cancel"
+            href="{% if post %}{% url 'post-detail' post.id %}{% else %}{% url 'index' %}{% endif %}">
+            취소
+            </a>
             <button class="podo-button large primary submit" type="submit">완료</button>
         </div>
     </form>

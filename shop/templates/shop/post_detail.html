@@ -2,18 +2,17 @@
 {% load humanize %}
 {% load widget_tweaks %}
 
+{% block title %}
+    {% if post %}
+        {{ post.title }}
+    {% else %}
+        물품 등록
+    {% endif %} | 소금마켓
+{% endblock title %}
 
 {% block content %}
     <div class="post-detail">
-        <div class="header">
-            <a href="{% url 'posts' %}">&lt; 목록으로</a>
-            <div class="buttons">
-                <a class="podo-button small negative" href="#">삭제</a>
-                <a class="podo-button small secondary" href="#">수정</a>
-            </div>
-        </div>  
-        <article>
-            
+        <article> 
             <img class="image" src="{{ post.image1.url }}">
             {% if image2 %}
                 <img class="image" src="{{ post.image2.url }}">
@@ -34,7 +33,11 @@
             <div class="dt-created">
                 date: {{ post.dt_created|date:"Y.m.d" }}
             </div>
-                
         </article>
+    </div>
+    <a href="{% url 'posts' %}">&lt; 목록으로</a>
+    <div class="buttons">
+        <a class="podo-button small negative" href="#">삭제</a>
+        <a class="podo-button small secondary" href="{% url 'post-update' post.id %}">수정</a>
     </div>
 {% endblock content %}
