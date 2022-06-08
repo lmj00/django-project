@@ -1,5 +1,8 @@
 from shop.models import Post
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
+from django.urls import reverse
+from shop.forms import PostForm
+
 
 # Create your views here.
 class IndexView(ListView): 
@@ -14,3 +17,10 @@ class PostView(ListView):
     context_object_name = 'posts'
     paginate_by: int = 8
     ordering = ['-dt_created']
+
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'shop/post_detail.html'
+    pk_url_kwarg = 'post_id'
+
