@@ -1,0 +1,40 @@
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+    <div class="post-detail">
+        <div class="header">
+            <a href="{% url 'posts' %}">&lt; 목록으로</a>
+            <div class="buttons">
+                <a class="podo-button small negative" href="#">삭제</a>
+                <a class="podo-button small secondary" href="#">수정</a>
+            </div>
+        </div>  
+        <article>
+            
+            <img class="image" src="{{ post.image1.url }}">
+            {% if image2 %}
+                <img class="image" src="{{ post.image2.url }}">
+            {% endif %}
+            {% if image3 %}
+                <img class="image" src="{{ post.image3.url }}">
+            {% endif %}
+
+            <div class="title">
+                {{ post.title }}
+            </div>             
+            <div class="price">
+                {{ post.price|intcomma }} 원
+            </div>
+            <div class="content">
+                {{ post.content }}
+            </div>
+            <div class="dt-created">
+                date: {{ post.dt_created|date:"Y.m.d" }}
+            </div>
+                
+        </article>
+    </div>
+{% endblock content %}
