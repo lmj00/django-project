@@ -1,7 +1,7 @@
-from shop.models import Post
-from django.views.generic import ListView, DetailView
 from django.urls import reverse
 from shop.forms import PostForm
+from shop.models import Post
+from django.views.generic import ListView, DetailView, CreateView 
 
 
 # Create your views here.
@@ -24,3 +24,15 @@ class PostDetailView(DetailView):
     template_name = 'shop/post_detail.html'
     pk_url_kwarg = 'post_id'
 
+
+class PostCreateView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'shop/post_form.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'post_id': self.object.id}) 
