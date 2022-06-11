@@ -1,17 +1,370 @@
-<navbar>
+{% load static %}
+<!-- <navbar>
     {% if user.is_authenticated %}
         <a href="{% url 'account_logout' %}">로그아웃</a>
     {% else %}
         <a href="{% url 'account_login' %}">로그인</a>
-        <a href="{% url 'account_signup' %}">회원가입</a>
+        <a href="{% url 'account_signup' %}">회원가입</a><br>
     {% endif %}
-</navbar>
-
-<h1>index<h1>
-
+</navbar> -->
+<!-- 
 {% if user.is_authenticated %}
     <h1>{{user}}의 닉네임은 {{user.nickname}}</h1>
     <p><a href="{% url 'account_change_password' %}">비밀번호 변경</a></p>
+    <a href="{% url 'posts' %}">POST</a>
+    <a href="{% url 'post-create' %}">글쓰기</a> 
 {% else %}
     <p>로그아웃 상태</p>
-{% endif %}
+{% endif %} -->
+
+
+<!Doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>소금마켓</title>
+<link rel="stylesheet" type="text/css" href="{% static 'shop/styles/default.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'shop/styles/index.css' %}">
+</head>
+
+
+<body>
+    <a href="#contents" class="skip">본문바로가기</a>
+    <header>
+        <h1>소금마켓</h1>
+        <h2 class="hide">대메뉴</h2>
+        <nav class="lnb">
+            <ul>
+            <li><a href="#a"><span>기업소개</span></a></li>
+            <li><a href="{% url 'post-create' %}"><span>거래하기</span></a></li>
+            <li><a href="#a"><span>고객센터</span></a></li>
+            <li><a href="#a"><span>고객후기</span></a></li>
+            </ul>
+        </nav>
+        <h2 class="hide">관련서비스</h2>
+        <nav class="spot">
+            <ul>
+            {% if user.is_authenticated %}
+            <h1>{{user}}의 닉네임은 {{user.nickname}}</h1>
+            <p><a href="{% url 'account_change_password' %}">비밀번호 변경</a></p>
+            <a href="{% url 'posts' %}">POST</a>
+            <a href="{% url 'post-create' %}">글쓰기</a> 
+            {% else %}
+            <p>로그아웃 상태</p>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'account_logout' %}">로그아웃</a></li>
+            <li><a href="#a">BLOG</a></li>
+            {% else %}   
+            <li><a href="{% url 'account_login' %}">로그인</a></li>
+            <li><a href="{% url 'account_signup' %}">회원가입</a></li>
+            <li><a href="#a">BLOG</a></li>
+            {% endif %}
+            </ul>
+
+            <!-- <navbar>
+            {% if user.is_authenticated %}
+                <a href="{% url 'account_logout' %}">로그아웃</a>
+            {% else %}
+                <a href="{% url 'account_login' %}">로그인</a>
+                <a href="{% url 'account_signup' %}">회원가입</a>
+            {% endif %}
+            </navbar> 
+
+            <h1>index<h1>-->
+
+        </nav>
+    </header>
+    <section class="visual slide">
+        <h2 class="hide">광고영역</h2>
+        <a href="#a" class="prev">이전</a>
+        <a href="#a" class="next">다음</a>
+        <div class="control">
+            <div>
+                <div>
+                    <a href="#a" class="play on">시작</a>
+                    <a href="#a" class="pause">일시정지</a>
+                </div>
+                <ul>
+                <li class="on"><a href="#a">소금마켓 비전</a></li>
+                <li><a href="#a">텍스트1</a></li>
+                <li><a href="#a">텍스트2</a></li>
+                <li><a href="#a">텍스트3</a></li>
+                <li><a href="#a">텍스트4</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="con">
+            <div class="slide">
+                <div class="txt">
+                <br>
+                소소하지만<br>
+                확실한 행복!
+                <p>소금마켓과 함께 편리하고 행복한 거래해요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="product">
+        <h2 class="hide">제품정보</h2>
+        <ul>
+        <li><a href="#a">패션의류</a></li>
+        <li><a href="#a">뷰티</a></li>
+        <li><a href="#a">모바일</a></li>
+        <li><a href="#a">리빙</a></li>
+        <li><a href="#a">가전제품</a></li>
+        <li><a href="#a">패션잡화</a></li>
+        </ul>
+    </section>
+	<section class="slide magazine">
+		<h2>소금마켓</h2>
+		<p>이웃과의 거래를 통해 다양한 제품을 만나보세요.</p>
+        <a href="#a" class="prev">이전</a>
+        <a href="#a" class="next">다음</a>
+        <div class="control">
+            <div>
+                <div>
+                    <a href="#a" class="play on">시작</a>
+                    <a href="#a" class="pause">일시정지</a>
+                </div>
+                <ul>
+					<li class="on"><a href="#a">소금마켓 비전</a></li>
+					<li><a href="#a">텍스트1</a></li>
+					<li><a href="#a">텍스트2</a></li>
+					<li><a href="#a">텍스트3</a></li>
+					<li><a href="#a">텍스트4</a></li>
+                </ul>
+            </div>
+        </div>
+		<div class="slide_box">
+			<div>
+				<div class="left">
+					<div>
+						<h3>직거래 마켓<span>[우리 동네 중고 직거래 마켓]</span></h3>
+						<p>동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</p>
+						<a href="#a">자세히보기</a>
+					</div>
+					<img src="{% static 'shop/images/img1.jpg' %}" alt="">
+				</div>
+				<ul class="right">
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_thoumb2.png' %}" alt="">
+							<strong>가전제품</strong>
+							청정기제습기
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_thoumb3.png' %}" alt="">
+							<strong>인테리어</strong>
+							의자 가져가세요(무료나눔)
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_thoumb1.png' %}" alt="">
+							<strong>패션</strong>
+							나이키 바람막이
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_thoumb4.png' %}" alt="">
+							<strong>전자제품</strong>
+							써큘레이터
+						</div>
+					</a>
+				</li>
+				</ul>
+			</div>
+			<div>
+				<div class="left">
+					<div>
+						<h3>직거래 마켓<span>[우리 동네 중고 직거래 마켓]</span></h3>
+						<p>동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</p>
+						<a href="#a">자세히보기</a>
+					</div>
+					<img src="{% static 'shop/images/img1.jpg' %}" alt="">
+				</div>
+				<ul class="right">
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_thoumb2.png' %}" alt="">
+							<strong>가전제품</strong>
+							청정기제습기
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_thoumb3.png' %}" alt="">
+							<strong>인테리어</strong>
+							의자 가져가세요(무료나눔)
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_thoumb1.png' %}" alt="">
+							<strong>패션</strong>
+							나이키 바람막이
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_t43.jpg' %}" alt="">
+							<strong>전자제품</strong>
+							써큘레이터
+						</div>
+					</a>
+				</li>
+				</ul>
+			</div>
+			<div>
+				<div class="left">
+					<div>
+						<h3>직거래 마켓<span>[우리 동네 중고 직거래 마켓]</span></h3>
+						<p>동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</p>
+						<a href="#a">자세히보기</a>
+					</div>
+					<img src="{% static 'shop/images/img1.jpg' %}" alt="">
+				</div>
+				<ul class="right">
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_thoumb2.png' %}" alt="">
+							<strong>가전제품</strong>
+							청정기제습기
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_thoumb3.png' %}" alt="">
+							<strong>인테리어</strong>
+							의자 가져가세요(무료나눔)
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_thoumb1.png' %}" alt="">
+							<strong>패션</strong>
+							나이키 바람막이
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#a">
+						<div>
+							<img src="{% static 'shop/images/img_t43.jpg' %}" alt="">
+							<strong>전자제품</strong>
+							써큘레이터
+						</div>
+					</a>
+				</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	{% load widget_tweaks %}
+	<section class="notice">
+		<div class="clear">
+			<div class="top clear">
+				<ul>
+				<li><a href="#a">Review<span>행복한 거래 이야기</span></a></li>
+				<li><a href="#a">블로그<span>소소한 소금마켓 이야기</span></a></li>
+				<li><a href="#a">회사소개<span>소금마켓 소개</span></a></li>
+				</ul>
+				<div>
+					<h2>물건 찾기</h2>
+					<div>
+						<select title="검색조건 선택">
+						<option>전체검색</option>
+						</select>
+					</div>
+					<div><input type="search" title="입력" placeholder="입력하세요."></div>
+					<div><a href="#a">검색하기</a></div>
+				</div>
+			</div>
+			<article>
+				<div class="left">
+					<h2>공지</h2>
+					<ul>
+					<li><a href="#a"><span>소소하지만 행복한 지금, 소금마켓</span><p>2022.03.26</p><div>이웃과 함께하는 동네생활</div></a></li>
+					<li><a href="#a">내 근처에서 찾는 동네가게<p>2022.05.20</p><div>우리 동네 가게를 찾고 있나요? 동네 주민이 남긴 진짜 후기를...</div></a></li>
+					</ul>
+					<a href="#a">더보기</a>
+				</div>
+				<div class="right">
+					<h2>소소한 이야기</h2>
+					<ul>
+					<li><a href="#a">소금마켓에서 지켜야 할 매너<p>2022.03.27</p></a></li>
+					<li><a href="#a">무엇이든 물어보세요!<p>2022.04.26</p></a></li>
+					<li><a href="#a">관심사가 비슷한 이웃과 모임만들기<p>2022.05.29</p></a></li>
+					</ul>
+					<a href="#a">더보기</a>
+				</div>
+			</article>
+		</div>
+	</section>
+	<section class="banner">
+		<h2 class="hide">주요서비스</h2>
+		<ul>
+		<li><a href="#a"><strong>믿을 수 있는 중고거래</strong></a></li>
+		<li><a href="#a"><strong>자주 묻는 질문</strong></a></li>
+		<li><a href="#a"><strong>회사 소개</strong></a></li>
+		<li><a href="#a"><strong>이용약관</strong></a></li>
+		</ul>
+	</section>
+	<footer>
+		<div class="top">
+			<div class="clear">
+				<ul>
+				<li><a href="#a">회사소개</a></li>
+				<li><a href="#a">개인정보처리방침</a></li>
+				<li><a href="#a">이용약관</a></li>
+				<li><a href="#a">위치기반서비스 이용약관</a></li>
+				<li><a href="#a">소금마켓</a></li>
+				<li><a href="#a">e-commerce</a></li>
+				</ul>
+				<!-- <div>
+					<p>문의사항<strong>080-777-2299</strong></p>
+					<select>
+					<option>FAMILY SITE</option>
+					</select>
+				</div> -->
+			</div>
+		</div>
+		<div class="btm">
+			<ul>
+			<li>강원도 춘천시 강원대학길 1</li>
+			<li>Tel 000-000-0000</li>
+			<li>개인정보취급관리자</li>
+			<li>E-mail saltmarket@salt.com</li>
+			</ul>
+			<address>Copyright 2022 SALTMARKET All rights reserved.</address>
+		</div>
+	</footer>
+</body>
+</html>
+
+
