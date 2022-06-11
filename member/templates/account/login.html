@@ -34,12 +34,12 @@
             
             <!-- <input type="text" placeholder="이메일을 입력해 주세요." name="" value="" maxlength="100"> -->
             {% for error in form.non_field_errors %}
-            <div class="form-error error-message">{{ error }}</div>
+            <div class="form-error-error-message">{{ error }}</div>
         {% endfor %}
         <div>
             {{ form.login|add_class:"market-input"|attr:"placeholder:이메일을 입력해 주세요."|add_error_class:"error" }}
             {% for error in form.login.errors %}
-                <div class="form-error error-message">{{ error }}</div>
+                <div class="form-error-error-message">{{ error }}</div>
             {% endfor %}
         </div>  
         </div>  
@@ -53,11 +53,11 @@
               
             {{ form.password|add_class:"market-input"|attr:"placeholder:비밀번호를 입력해 주세요."|add_error_class:"error"}}
             {% for error in form.password.errors %}
-                <div class="form-error error-message">{{ error }}</div>
+                <div class="form-error-error-message">{{ error }}</div>
             {% endfor %}
         </div>
-        <!-- <button class="market-button" type="submit">로그인</button> -->
-        <input class="btn" type="button" name="" value="로그인">
+        <button class="market-button" type="submit">로그인</button>
+        <input class="btn" type="submit" name="" value="로그인">
     </form>
 
     <div class="info">
