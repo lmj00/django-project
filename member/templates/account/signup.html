@@ -29,12 +29,12 @@
     <div class="login-box">
         <h1>Sign up</h1>
     
-    <form method="post" id="signupForm" onsubmit="return addressCheck()">
+    <form method="post">
         {% csrf_token %}
         <div class="textbox">
             <i class="fa-solid fa-paper-plane"></i>
             <!-- <input type="text" placeholder="이메일을 입력해 주세요." name="" value="" maxlength="100"> -->
-            {{ form.email|add_class:"market-input"|attr:"placeholder:이메일을 입력해주세요."|add_error_class:"error"  }}
+            {{ form.email|add_class:"market-input"|attr:"placeholder:이메일을 입력해주세요."|add_error_class:"error" }}
             {% for error in form.email.errors %}
                 <div class="error-message">{{ error }}</div>
             {% endfor %}
@@ -68,59 +68,39 @@
             </div>   
         <p>
             <div class="textbox">
-                <i class="fa-solid fa-location-dot"></i>
+                
+                    <i class="fa-solid fa-location-dot"></i>
                 <!-- <input type="text" placeholder="" name="" value=""> -->
                 {{ form.address|add_class:"market-input"|add_error_class:"error"|attr:"placeholder:위치를 정해주세요."}}
-
                 {% for error in form.address.errors %}
-                    <div class="error-message" id="error-message">{{ error }}</div>
+                    <div class="error-message">{{ error }}</div>
                 {% endfor %}
                 </span>
                 <a href="#" onclick="addressSearch();" class="position_in" role="button">
                     <span class="a">주소찾기</span>
                 </a> 
-                
+       
             </div>
             
-        {% comment %} <button class="cp-button" type="submit">회원가입</button> {% endcomment %}
+        <button class="cp-button" type="submit">회원가입</button>
+        <input class="btn" type="submit" name="" value="Sign in">
     </form>
     
     <!-- <input class="btn" type="button" onclick="addressSearch();" value="주소 찾기" />  -->
-    <input class="btn" type="button" name="" value="Sign in">
+    
     <div class="info" style="text-align: right;">
-        이미 회원이신가요? <a class="link" href="#">로그인</a>
+        이미 회원이신가요? <a class="link" href="login.html">로그인</a>
     </div>  
+    
+    
+    </div>
 </body>
 </html>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     function addressSearch() {
         window.open('/popup_address', '위치 찾기', 'width=150px', 'height=200px', 'resizable = no')
-        // window.resizeTo(200, 200);
-    }
     
-    function addressCheck() {
-        let param = {
-            'address': document.getElementById('id_address').value
-        }
-        
-        var signupForm = document.getElementById("signupForm");
-
-        $.ajax({
-            type: 'POST',
-            url : 'addrCheck',
-            data: JSON.stringify(param), 
-            success: function (data) {
-                localStorage.clear();
-                signupForm.submit();
-            },
-            error: function(request, status, error){
-                alert("주소를 찾아주세요")
-                // alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        });
-
-        return false;
-        
+        // window.resizeTo(200, 200);
     }
 </script>
