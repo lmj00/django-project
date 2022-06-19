@@ -1,23 +1,4 @@
 {% load static %}
-<!-- <navbar>
-    {% if user.is_authenticated %}
-        <a href="{% url 'account_logout' %}">로그아웃</a>
-    {% else %}
-        <a href="{% url 'account_login' %}">로그인</a>
-        <a href="{% url 'account_signup' %}">회원가입</a><br>
-    {% endif %}
-</navbar> -->
-<!-- 
-{% if user.is_authenticated %}
-    <h1>{{user}}의 닉네임은 {{user.nickname}}</h1>
-    <p><a href="{% url 'account_change_password' %}">비밀번호 변경</a></p>
-    <a href="{% url 'posts' %}">POST</a>
-    <a href="{% url 'post-create' %}">글쓰기</a> 
-{% else %}
-    <p>로그아웃 상태</p>
-{% endif %} -->
-
-
 <!Doctype html>
 <html lang="ko">
 <head>
@@ -62,18 +43,6 @@
             <li><a href="#a">BLOG</a></li>
             {% endif %}
             </ul>
-
-            <!-- <navbar>
-            {% if user.is_authenticated %}
-                <a href="{% url 'account_logout' %}">로그아웃</a>
-            {% else %}
-                <a href="{% url 'account_login' %}">로그인</a>
-                <a href="{% url 'account_signup' %}">회원가입</a>
-            {% endif %}
-            </navbar> 
-
-            <h1>index<h1>-->
-
         </nav>
     </header>
     <section class="visual slide">
