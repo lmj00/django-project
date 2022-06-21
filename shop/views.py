@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse
 from shop.forms import PostForm
 from shop.models import Post
@@ -51,3 +52,9 @@ class PostUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('post-detail', kwargs={'post_id': self.object.id}) 
+
+
+def PostDelete(request, post_id):
+    Post.objects.get(id=post_id).delete()
+
+    return redirect('posts') 
