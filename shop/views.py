@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.urls import reverse
-from shop.forms import PostForm
+from shop.forms import PostCreateForm, PostUpdateForm
 from shop.models import Post
 from django.views.generic import (
     ListView, 
@@ -33,7 +33,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(CreateView):
     model = Post
-    form_class = PostForm
+    form_class = PostCreateForm
     template_name = 'shop/post_form.html'
 
     def form_valid(self, form):
@@ -46,7 +46,7 @@ class PostCreateView(CreateView):
 
 class PostUpdateView(UpdateView):
     model = Post
-    form_class = PostForm
+    form_class = PostUpdateForm
     template_name = 'shop/post_form.html'
     pk_url_kwarg = 'post_id'
 

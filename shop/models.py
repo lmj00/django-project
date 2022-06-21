@@ -1,6 +1,4 @@
-from email.mime import image
 from django.db import models
-from django.forms import CharField
 from django.core.validators import MinValueValidator
 from member.models import User
 
@@ -21,7 +19,8 @@ class Post(models.Model):
 
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     dt_created = models.DateTimeField(auto_now=True)
-
+    
+    is_sold = models.BooleanField(default=False)
 
     """ 
     카테고리 추가 예정

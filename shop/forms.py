@@ -1,7 +1,7 @@
 from django import forms
 from .models import Post
 
-class PostForm(forms.ModelForm):
+class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = [
@@ -11,4 +11,18 @@ class PostForm(forms.ModelForm):
             'image1',
             'image2',
             'image3'
+        ]
+
+
+class PostUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = [
+            'title',
+            'content',
+            'price',
+            'image1',
+            'image2',
+            'image3',
+            'is_sold'
         ]
