@@ -21,18 +21,15 @@
                 <img class="image" src="{{ post.image3.url }}">
             {% endif %}
 
-            <div class="title">
-                {{ post.title }}
-            </div>             
-            <div class="price">
-                {{ post.price|intcomma }} 원
+            <h2 class="title">{{ post.title }}</h2>
+            <div class="info">
+                <div class="price {% if post.is_sold %}sold{% endif %}">{{ post.price|intcomma }}원</div>
+                <div class="content">
+                    {{ post.content }}
+                </div>
+                <span class="date">{{ post.dt_created|date:"Y.m.d" }}</span>
             </div>
-            <div class="content">
-                {{ post.content }}
-            </div>
-            <div class="dt-created">
-                date: {{ post.dt_created|date:"Y.m.d" }}
-            </div>
+            {% if post.is_sold %}<div class="is-sold">거래완료</div>{% endif %}
         </article>
     </div>
     <a href="{% url 'posts' %}">&lt; 목록으로</a>
