@@ -8,7 +8,7 @@ from django.views.generic import (
     CreateView, 
     UpdateView,
 )
-
+from braces.views import LoginRequiredMixin
 
 # Create your views here.
 class IndexView(ListView): 
@@ -31,7 +31,7 @@ class PostDetailView(DetailView):
     pk_url_kwarg = 'post_id'
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostCreateForm
     template_name = 'shop/post_form.html'
@@ -44,7 +44,7 @@ class PostCreateView(CreateView):
         return reverse('post-detail', kwargs={'post_id': self.object.id}) 
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostUpdateForm
     template_name = 'shop/post_form.html'
