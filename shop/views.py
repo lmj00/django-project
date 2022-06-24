@@ -8,7 +8,9 @@ from django.views.generic import (
     CreateView, 
     UpdateView,
 )
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, UserPassesTestMixin
+from allauth.account.models import EmailAddress
+from member.functions import confirmation_required_redirect
 
 # Create your views here.
 class IndexView(ListView): 
@@ -31,10 +33,14 @@ class PostDetailView(DetailView):
     pk_url_kwarg = 'post_id'
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
     form_class = PostCreateForm
     template_name = 'shop/post_form.html'
+
+
+    redirect_unauthenticated_users = True
+    raise_exception = confirmation_required_redirect
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -42,7 +48,10 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('post-detail', kwargs={'post_id': self.object.id}) 
-
+    
+    def test_func(self, user):
+        return EmailAddress.objects.filter(user=user, verified=True).exists()
+		
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
