@@ -33,10 +33,13 @@
         </article>
     </div>
     <a href="{% url 'posts' %}">&lt; 목록으로</a>
-    <div class="buttons">
-        <a class="podo-button small secondary" href="{% url 'post-update' post.id %}">수정</a>
-        <a class="podo-button small secondary" onclick="return deleteCheck()" href="{% url 'post-delete' post.id %}">삭제</a>
-    </div>
+    {% if post.author == user %}
+        <div class="buttons">
+            <a class="podo-button small secondary" href="{% url 'post-update' post.id %}">수정</a>
+            <a class="podo-button small secondary" onclick="return deleteCheck()" href="{% url 'post-delete' post.id %}">삭제</a>
+        </div>
+    {% endif %}
+    
 {% endblock content %}
 
 <script>

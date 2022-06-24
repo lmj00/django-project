@@ -53,14 +53,19 @@ class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         return EmailAddress.objects.filter(user=user, verified=True).exists()
 		
 
-class PostUpdateView(LoginRequiredMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     form_class = PostUpdateForm
     template_name = 'shop/post_form.html'
     pk_url_kwarg = 'post_id'
 
+    raise_exception = True
+
     def get_success_url(self):
         return reverse('post-detail', kwargs={'post_id': self.object.id}) 
+
+    def test_func(self, user):
+        return self.get_object().author == user
 
 
 def PostDelete(request, post_id):
