@@ -32,8 +32,13 @@ urlpatterns = [
     
     # allauth
     path(
+        'email-confirmation-required',
+        TemplateView.as_view(template_name='account/email_confirmation_required.html'),
+        name='account_email_confirmation_required'
+    ),
+    path(
         'email-confirmation-done/',
-        TemplateView.as_view(template_name='member/email_confirmation_done.html'),
+        TemplateView.as_view(template_name='account/email_confirmation_done.html'),
         name='account_email_confirmation_done'
     ),
 
