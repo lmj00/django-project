@@ -1,5 +1,4 @@
-from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from shop.forms import PostCreateForm, PostUpdateForm
 from shop.models import Post
 from django.views.generic import (
@@ -7,6 +6,7 @@ from django.views.generic import (
     DetailView, 
     CreateView, 
     UpdateView,
+    DeleteView
 )
 from braces.views import LoginRequiredMixin, UserPassesTestMixin
 from allauth.account.models import EmailAddress
@@ -68,7 +68,18 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return self.get_object().author == user
 
 
-def PostDelete(request, post_id):
-    Post.objects.get(id=post_id).delete()
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    pk_url_kwarg = 'post_id'
+    success_url = reverse_lazy('posts')
 
-    return redirect('posts') 
+    raise_exception = True
+
+    def get_success_url(self):
+        return reverse('posts')
+
+    def get(self, *args, **kwargs):
+        return self.post(*args, **kwargs)
+
+    def test_func(self, user):
+        return self.get_object().author == user

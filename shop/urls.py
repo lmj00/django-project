@@ -21,7 +21,7 @@ urlpatterns = [
     ),
     path(
         'posts/<int:post_id>/delete/',
-        views.PostDelete,
+        views.PostDeleteView.as_view(),
         name='post-delete'
     ),
 ]
