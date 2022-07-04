@@ -9,10 +9,10 @@ body{
 }
 
 .login-box{
-  width: 300px;
+  width: 270px;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 52%;
   transform: translate(-75%, -50%);
   color: black;
 }
@@ -28,7 +28,7 @@ body{
 .textbox{
   width: 150%;
   overflow: hidden;
-  font-size: 20px;
+  font-size: 18px;
   padding: 12px 0;
   margin: 50px 0; /* 원래 30*/
   border-bottom: 1px solid #b9b9b9;
@@ -94,4 +94,25 @@ body{
 .error-message{
   font-size: 8px;
   color: red;
+}
+
+#id_email.market-input{
+  font-size: 13px;
+}
+
+
+#id_nickname.market-input{
+  font-size: 13px;
+}
+
+#id_password1.market-input{
+  font-size: 13px;
+}
+
+#id_password2.market-input{
+  font-size: 13px;
+}
+
+#id_address.market-input{
+  font-size: 13px;
 }
