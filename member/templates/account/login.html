@@ -24,10 +24,11 @@
     {% load widget_tweaks %}
 
 <body>
+    
     <div class="login-box">
         <h1>Login</h1>
 
-    <form method="post">
+    <form class="form_layout" method="post">
         {% csrf_token %}
         <div class="textbox">
             <i class="fas fa-user"></i>
@@ -56,13 +57,13 @@
                 <div class="form-error-error-message">{{ error }}</div>
             {% endfor %}
         </div>
-        <button class="market-button" type="submit">로그인</button>
+        <!-- <button class="market-button" type="submit">로그인</button> -->
         <input class="btn" type="submit" name="" value="로그인">
     </form>
 
     <div class="info">
         <a class="item" href="{% url 'account_reset_password' %} ">비밀번호 찾기</a>
-        <a class="item" href="{% url 'account_signup' %}">회원가입</a>
+        <a class="item" href="{% url 'account_signup' %}">&nbsp;회원가입</a>
     </div>
 </body>
 </html>

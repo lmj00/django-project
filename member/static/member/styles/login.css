@@ -12,7 +12,7 @@ body{
   width: 300px;
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 52%;
   transform: translate(-75%, -50%);
   color: black;
 }
@@ -26,10 +26,10 @@ body{
 }
 
 .textbox{
-  width: 150%;
+  width: 120%;
   overflow: hidden;
-  font-size: 20px;
-  padding: 12px 0;
+  font-size: 18px;
+  padding: 8px 0;
   margin: 30px 0;
   border-bottom: 1px solid #b9b9b9;
 
@@ -52,7 +52,7 @@ body{
   outline: none;
   background: none;
   color: black;
-  font-size: 18px;
+  font-size: 15px;
   width: 250px;
   float: left;
   margin: 0 10px;
@@ -60,7 +60,7 @@ body{
 
 .btn{
 
-  width: 150%;
+  width: 120%;
   height: 58px;
   background: none;
   color: white;
@@ -73,6 +73,13 @@ body{
 
 }
 
+#id_login.market-input{
+  font-size: 13px;
+}
+
+#id_password.market-input{
+  font-size: 13px;
+}
 /*  
 .btn:hover{
   color: white;
@@ -80,8 +87,8 @@ body{
 }  */
 
 .info{
-  text-align: right;
-
+  text-align: center;
+  margin-left: 40px;
 } 
 .form-error-error-message{
   font-size: 10px;
