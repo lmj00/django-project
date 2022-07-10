@@ -59,12 +59,12 @@ class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     form_class = PostCreateForm
     template_name = 'shop/post_form.html'
 
-
     redirect_unauthenticated_users = True
     raise_exception = confirmation_required_redirect
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        form.instance.address = self.request.user.address
         return super().form_valid(form)
 
     def get_success_url(self):
