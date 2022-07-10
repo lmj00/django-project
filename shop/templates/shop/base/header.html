@@ -1,0 +1,61 @@
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" id="nav_head">
+      <a class="navbar-brand" href="{% url 'index' %}">소금마켓</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="coll_nav">
+          <ul class="navbar-nav mr-auto" id="nav_content">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">회사소개</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'posts' %}">거래하기</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'post-create' %}">상품등록</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">고객후기</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 로그인 상태일 때 해당 -->
+        <div class="dropdown">
+
+          {% if user.is_authenticated %}
+            <a class="dropdown-button">{{user.nickname}}님</a>
+
+            <div class="dropdown-content">
+              <a href="#">Mypage</a>
+              <a href="{% url 'posts' %}">POST</a>
+              <a href="{% url 'post-create' %}">Write</a>
+
+              <a href="{% url 'account_change_password' %}">PW change</a>
+            </div>
+          </div>
+          <div class="nav_logout">
+            <a href="{% url 'account_logout' %}">Logout</a>
+          </div>
+        {% else %}
+
+          <!-- 로그아웃 상태일 때 해당 -->
+          <div class="logout_nav">
+            <a class="logout_item" href="{% url 'account_login' %}">Login</a>&nbsp;&nbsp;
+            <a class="logout_item" href="{% url 'account_signup' %}">Signup</a>
+          </div>
+          {% endif%}
+
+        </nav>
+      </header>
+
+      <form class="form-inline mt-2 mt-md-0" method="get" action="{% url 'post-search' %}">
+        <div class="search_button">
+            <input class="form-control mr-sm-2" id="form_bt" name="searched" type="text"  placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" id="form_ser_bt" type="submit">Search</button>
+        </div>
+    </form>
