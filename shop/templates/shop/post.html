@@ -44,17 +44,21 @@
               </div>
       
               <!-- 로그인 상태일 때 해당 -->
-              {% if user.is_authenticated %}
               <div class="dropdown">
+          
+                {% if user.is_authenticated %}
                 <a class="dropdown-button">{{user.nickname}}님</a>
                 
                 <div class="dropdown-content">
                   <a href="#">Mypage</a>
                   <a href="{% url 'posts' %}">POST</a>
                   <a href="{% url 'post-create' %}">Write</a>
-                  <a href="{% url 'account_logout' %}">Logout</a>
+                  
                   <a href="{% url 'account_change_password' %}">PW change</a>
                 </div> 
+              </div>
+              <div class="nav_logout">
+              <a href="{% url 'account_logout' %}">Logout</a>
               </div>
                 {% else %}
       
@@ -83,7 +87,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="card"><!--width: 18rem;-->
                     <a href="{% url 'post-detail' post.id %}">
-                        <img src="{{ post.image1.url }}" class="card-img-top" alt="{{post.title}}" width="200" height="200">
+                        <img src="{{ post.image1.url }}" class="card-img-top" alt="{{post.title}}" width="300px" height="250px">
                     </a>
                     <div class="card-body">
                       <h5 class="card-title">{{ post.title }}</h5>

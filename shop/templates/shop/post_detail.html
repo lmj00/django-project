@@ -28,17 +28,32 @@
             <div class="slideshow-container">
                 
                 <div class="mySlides fade">
-                  <img class="image" src="{{ post.image1.url }}" width="400px" height="400px">
+                    <a href="{{ post.image1.url }}" style="width: 100%; ">
+                        <div class="image-wrap">
+                            <img class="image" src="{{ post.image1.url }}" style="opacity: 1;">
+                        </div>
+                    </a>
                 </div>
+               
+
+
                 {% if image2 %}
                 <div class="mySlides fade">
-                  <img class="image" src="{{ post.image2.url }}" width="400px" height="400px">
+                    <a href="{{ post.image1.url }}" style="width: 100%; display: inline-block;" >
+                            <div class="image-wrap">
+                            <img class="image" src="{{ post.image2.url }}" style="opacity: 1;">
+                            </div>
+                    </a>
                 </div>
                 {% endif %}
 
                 {% if image3 %}
                 <div class="mySlides fade">
-                  <img  class="image" src="{{ post.image3.url }}" width="400px" height="400px">
+                    <a href="{{ post.image1.url }}" style="width: 100%; display: inline-block;">
+                            <div class="image-wrap">
+                            <img class="image" src="{{ post.image3.url }}" style="opacity: 1;">
+                            </div>
+                    </a>
                 </div>
                 {% endif %}
 
@@ -53,7 +68,7 @@
                   <span class="dot" onclick="currentSlide(2)"></span> 
                   <span class="dot" onclick="currentSlide(3)"></span> 
                 </div>
-            
+            <div class="line"><br><br><br></div>
             <h2 class="title">{{ post.title }}</h2>
             <div class="info">
                 <div class="price {% if post.is_sold %}sold{% endif %}"><h4>{{ post.price|intcomma }}원</h4></div><br>
@@ -64,8 +79,10 @@
             </div>
             {% if post.is_sold %}<div class="is-sold">거래완료</div>{% endif %}
         </article>
-    
+        
     {% if post.author == user %}
+    
+    <br><br><br><div class="line"><br><br><br></div>
         <div class="buttons">
             <a class="button" href="{% url 'posts' %}">목록</a>
             <a class="button" href="{% url 'post-update' post.id %}">수정</a>
