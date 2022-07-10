@@ -13,8 +13,8 @@ class User(AbstractUser):
     )
 
     address = models.CharField(
-        max_length=15,
-        null=True,
+        max_length=30,
+        null=True
     )
 
     lat = models.FloatField(

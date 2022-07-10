@@ -24,4 +24,9 @@ urlpatterns = [
         views.PostDeleteView.as_view(),
         name='post-delete'
     ),
+    path(
+        'posts/search/',
+        views.PostSearchView.as_view(),
+        name='post-search'
+    )
 ]
