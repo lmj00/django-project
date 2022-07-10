@@ -1,4 +1,3 @@
-from turtle import title
 from django.urls import reverse, reverse_lazy
 from shop.forms import PostCreateForm, PostUpdateForm
 from shop.models import Post
@@ -12,8 +11,7 @@ from django.views.generic import (
 from braces.views import LoginRequiredMixin, UserPassesTestMixin
 from allauth.account.models import EmailAddress
 from member.functions import confirmation_required_redirect
-# from django.db.models import Q
-from django.contrib.postgres.search import SearchQuery
+from django.db.models import Q
 
 # Create your views here.
 class IndexView(ListView): 
@@ -37,9 +35,10 @@ class PostSearchView(ListView):
     ordering = ['-dt_created']
 
     def get_queryset(self):
-        test = self.request.GET.get('searched')
-        check = Post.objects.filter(title__icontains=test)
-        # .filter(address__icontains=test)
+        search = self.request.GET.get('searched')
+        check = Post.objects.filter(           
+            Q(title__icontains=search) | Q(address__icontains=search)
+        )   
         return check
 
     def get_context_data(self, **kwargs):
