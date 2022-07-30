@@ -49,6 +49,9 @@ urlpatterns = [
     ),
 
     path('', include('allauth.urls')), 
+
+    # chat
+    path('chat/', include('chat.urls')),
 ]
 
 # media
