@@ -29,7 +29,7 @@ urlpatterns = [
     
     # member
     path('', include('member.urls')),
-    
+
     # allauth
     path(
         'email-confirmation-required',
@@ -49,9 +49,9 @@ urlpatterns = [
     ),
 
     path('', include('allauth.urls')), 
-
+    
     # chat
-    path('chat/', include('chat.urls')),
+    path('', include('chat.urls')),
 ]
 
 # media
