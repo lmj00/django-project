@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 {% load widget_tweaks %}
 {% include './base/head.html' %}
 <link rel="stylesheet" type="text/css" href="{% static 'shop/styles/post.css' %}">
@@ -16,7 +17,7 @@
           </a>
           <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.price }}원</p>
+            <p class="card-text">{{ post.price | intcomma  }}원</p>
             <a href="{% url 'post-detail' post.id %}" class="btn-btn-link" id="detail_button">자세히보기</a>
           </div>
         </div>
