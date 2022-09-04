@@ -2,7 +2,6 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from member.models import User
 
-
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=30)
@@ -14,6 +13,9 @@ class Post(models.Model):
     price = models.IntegerField(
         validators=[MinValueValidator(1)]
     ) 
+
+    lat = models.FloatField(null=True)
+    lon = models.FloatField(null=True)
 
     image1 = models.ImageField(upload_to="post_pics")
     image2 = models.ImageField(upload_to="post_pics", blank=True)
