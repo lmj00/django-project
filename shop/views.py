@@ -12,6 +12,7 @@ from braces.views import LoginRequiredMixin, UserPassesTestMixin
 from allauth.account.models import EmailAddress
 from member.functions import confirmation_required_redirect
 from django.db.models import Q
+from haversine import haversine
 
 # Create your views here.
 class IndexView(ListView): 
@@ -38,7 +39,7 @@ class PostSearchView(ListView):
         search = self.request.GET.get('searched')
         check = Post.objects.filter(           
             Q(title__icontains=search) | Q(address__icontains=search)
-        )   
+        )    
         return check
 
     def get_context_data(self, **kwargs):
@@ -64,6 +65,8 @@ class PostCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.address = self.request.user.address
+        form.instance.lat = self.request.user.lat
+        form.instance.lon = self.request.user.lon
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -104,3 +107,22 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self, user):
         return self.get_object().author == user
 
+
+class PostDistanceView(ListView):
+    model = Post
+    template_name = 'shop/post_distance.html'
+
+    def get_queryset(self):
+        bar = self.request.GET.get('bar')
+        start = float(self.request.user.lat), float(self.request.user.lon)
+        value = Post.objects.values()
+        distance_list = []
+
+        for i in value:
+            goal = i['lat'], i['lon']
+            distance = haversine(start, goal) 
+
+            if int(bar) > distance:
+                distance_list.append(Post.objects.get(id=i['id'])) 
+        
+        return distance_list

@@ -28,5 +28,11 @@ urlpatterns = [
         'posts/search/',
         views.PostSearchView.as_view(),
         name='post-search'
+    ),
+    path(
+        'posts/distance/',
+        views.PostDistanceView.as_view(),
+        name='post-distance'
     )
+    
 ]
