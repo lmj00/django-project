@@ -9,4 +9,5 @@ UserAdmin.fieldsets += (
     ('Address fields', {'fields': ('address', )}),
     ('lat fields', {'fields': ('lat', )}),
     ('lon fields', {'fields': ('lon', )}),
+    ('profile', {'fields': ('profile_pic', )}),
 ) 
