@@ -17,78 +17,72 @@
             name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- CSS only -->
         <link rel="stylesheet" type="text/css" href="{% static 'shop/styles/post_detail.css' %}">
-        
-        
         <title>소금마켓</title>
     </head>
+
 <body>
 {% block content %}
-    <div class="post-detail">
-        <article class="cont_detail">
-            <div class="slideshow-container">
-                
-                <div class="mySlides fade">
-                    <a href="{{ post.image1.url }}" style="width: 100%; ">
+<div class="post-detail">
+    <article class="cont_detail">
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <a href="{{ post.image1.url }}" style="width: 100%; ">
+                    <div class="image-wrap">
+                        <img class="image" src="{{ post.image1.url }}" style="opacity: 1;">
+                    </div>
+                </a>
+            </div>
+            {% if image2 %}
+            <div class="mySlides fade">
+                <a href="{{ post.image1.url }}" style="width: 100%; display: inline-block;" >
                         <div class="image-wrap">
-                            <img class="image" src="{{ post.image1.url }}" style="opacity: 1;">
+                        <img class="image" src="{{ post.image2.url }}" style="opacity: 1;">
                         </div>
-                    </a>
-                </div>
-               
-
-
-                {% if image2 %}
-                <div class="mySlides fade">
-                    <a href="{{ post.image1.url }}" style="width: 100%; display: inline-block;" >
-                            <div class="image-wrap">
-                            <img class="image" src="{{ post.image2.url }}" style="opacity: 1;">
-                            </div>
-                    </a>
-                </div>
-                {% endif %}
-
-                {% if image3 %}
-                <div class="mySlides fade">
-                    <a href="{{ post.image1.url }}" style="width: 100%; display: inline-block;">
-                            <div class="image-wrap">
-                            <img class="image" src="{{ post.image3.url }}" style="opacity: 1;">
-                            </div>
-                    </a>
-                </div>
-                {% endif %}
-
-                <a class="prev" onclick="plusSlides(-1)">❮</a>
-                <a class="next" onclick="plusSlides(1)">❯</a>
-                
+                </a>
             </div>
-                <br>
-                
-                <div style="text-align:center">
-                  <span class="dot" onclick="currentSlide(1)"></span> 
-                  <span class="dot" onclick="currentSlide(2)"></span> 
-                  <span class="dot" onclick="currentSlide(3)"></span> 
-                </div>
-            <div class="line"><br><br><br></div>
-            <h2 class="title">{{ post.title }}</h2>
-            <div class="info">
-                <div class="price {% if post.is_sold %}sold{% endif %}"><h4>{{ post.price|intcomma }}원</h4></div><br>
-                <div class="content">
-                    {{ post.content }}<br>
-                </div>
-                <span class="date"><br><br><br>{{ post.dt_created|date:"Y.m.d" }}</span>
+            {% endif %}
+            {% if image3 %}
+            <div class="mySlides fade">
+                <a href="{{ post.image1.url }}" style="width: 100%; display: inline-block;">
+                        <div class="image-wrap">
+                        <img class="image" src="{{ post.image3.url }}" style="opacity: 1;">
+                        </div>
+                </a>
             </div>
-            {% if post.is_sold %}<div class="is-sold">거래완료</div>{% endif %}
-        </article>
-        
-    {% if post.author == user %}
-    
-    <br><br><br><div class="line"><br><br><br></div>
-        <div class="buttons">
-            <a class="button" href="{% url 'posts' %}">목록</a>
-            <a class="button" href="{% url 'post-update' post.id %}">수정</a>
-            <a class="button" onclick="return deleteCheck()" href="{% url 'post-delete' post.id %}">삭제</a>
+            {% endif %}
+            <a class="prev" onclick="plusSlides(-1)">❮</a>
+            <a class="next" onclick="plusSlides(1)">❯</a>
         </div>
-    {% endif %}
+            <br>
+            <div style="text-align:center">
+                <span class="dot" onclick="currentSlide(1)"></span> 
+                <span class="dot" onclick="currentSlide(2)"></span> 
+                <span class="dot" onclick="currentSlide(3)"></span> 
+            </div>
+        <div class="line"><br><br><br></div>
+        <h2 class="title">{{ post.title }}</h2>
+        <div class="info">
+            <div class="price {% if post.is_sold %}sold{% endif %}"><h4>{{ post.price|intcomma }}원</h4></div><br>
+            <div class="content">
+                {{ post.content }}<br>
+            </div>
+            <span class="date"><br><br><br>{{ post.dt_created|date:"Y.m.d" }}</span>
+            <!-- 디자인 필요-->
+            <a href="{% url 'profile' post.author.id %}">
+                {{ post.author.nickname }}
+            </a>
+        </div>
+        {% if post.is_sold %}<div class="is-sold">거래완료</div>{% endif %}
+    </article>
+    
+{% if post.author == user %}
+<br><br><br><div class="line"><br><br><br></div>
+    <div class="buttons">
+        <a class="button" href="{% url 'posts' %}">목록</a>
+        <a class="button" href="{% url 'post-update' post.id %}">수정</a>
+        <a class="button" onclick="return deleteCheck()" href="{% url 'post-delete' post.id %}">삭제</a>
+    </div>
+{% endif %}
 </div>
 {% endblock content %}
 
@@ -101,9 +95,6 @@
             return false;
         }
     }
-
-
-    
 </script>
 
 <script>

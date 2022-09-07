@@ -29,6 +29,7 @@
 
           {% if user.is_authenticated %}
             <a class="dropdown-button">{{user.nickname}}님</a>
+            <a href="{% url 'profile' user.id %}">프로필</a>
 
             <div class="dropdown-content">
               <a href="#">Mypage</a>

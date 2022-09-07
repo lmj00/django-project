@@ -1,0 +1,8 @@
+{{ profile_user.nickname }}
+
+<img class="image" src="{{ profile_user.profile_pic.url}}">
+{% for article in user_articles %}
+    <img class="image" src="{{ article.image1.url }}">
+    {{ article.title }}<br>
+    {{ article.dt_created }}
+{% endfor %}  
