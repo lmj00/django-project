@@ -5,6 +5,16 @@
 <link rel="stylesheet" type="text/css" href="{% static 'shop/styles/post.css' %}">
 {% include './base/header.html' %}
 
+{% if user.is_authenticated %}
+  <form method="get" action="{% url 'post-distance' %}">
+    <div class="container">
+      <label for="customRange2" class="form-label">거리 조절</label>
+      <input type="range" class="form-range" name="bar" min="0" max="5" id="customRange2">
+      <button>검색</button>
+    </div>
+  </form>
+{% endif %}
+
 <!-- 상품 배치 -->
 <div class="container">
   <div class="row">

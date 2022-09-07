@@ -108,7 +108,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.get_object().author == user
 
 
-class PostDistanceView(ListView):
+class PostDistanceView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'shop/post_distance.html'
 
