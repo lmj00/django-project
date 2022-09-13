@@ -1,6 +1,6 @@
 from django.urls import reverse, reverse_lazy
 from shop.forms import PostCreateForm, PostUpdateForm
-from shop.models import Post
+from shop.models import Post, User
 from django.views.generic import (
     ListView, 
     DetailView, 
@@ -26,7 +26,9 @@ class PostView(ListView):
     template_name = 'shop/post.html'
     context_object_name = 'posts'
     paginate_by: int = 8
-    ordering = ['-dt_created']
+
+    def get_queryset(self):
+        return Post.objects.filter(is_sold=False).order_by('-dt_created')
 
 
 class PostSearchView(ListView):
@@ -126,3 +128,16 @@ class PostDistanceView(LoginRequiredMixin, ListView):
                 distance_list.append(Post.objects.get(id=i['id'])) 
         
         return distance_list
+
+
+class ProfileView(DetailView):
+    model = User
+    template_name = 'shop/profile.html'
+    pk_url_kwarg = 'user_id'
+    context_object_name = 'profile_user'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.kwargs.get('user_id')
+        context['user_articles'] = Post.objects.filter(author__id=user_id).order_by("-dt_created")
+        return context

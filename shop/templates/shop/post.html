@@ -26,10 +26,15 @@
             <img src="{{ post.image1.url }}" class="card-img-top" alt="{{post.title}}" width="300px" height="250px">
           </a>
           <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.price | intcomma  }}원</p>
-            <span>{{ post.address }}</span>
-            <a href="{% url 'post-detail' post.id %}" class="btn-btn-link" id="detail_button">자세히보기</a>
+            <!-- is_sold 일시 sold 클래스 추가-->
+            <div class="price-and-status {% if post.is_sold %}sold{% endif %}">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <p class="card-text">{{ post.price | intcomma  }}원</p>
+              {% if post.is_sold %}
+                <span class="status">거래 완료</span>
+              {% endif %}
+              <span>{{ post.address }}</span>
+            </div>
           </div>
         </div>
       </div>
