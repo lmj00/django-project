@@ -19,12 +19,6 @@ class IndexView(ListView):
     model = Post
     template_name = 'shop/index.html'
     context_object_name = 'posts'
-
-
-class PostView(ListView):
-    model = Post
-    template_name = 'shop/post.html'
-    context_object_name = 'posts'
     paginate_by: int = 8
 
     def get_queryset(self):
