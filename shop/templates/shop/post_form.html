@@ -1,102 +1,86 @@
-{% load static %}
-{% load widget_tweaks %}
-{% include './base/head.html' %}
-<link rel="stylesheet" type="text/css" href="{% static 'shop/styles/post_form.css' %}">
+{% extends "base_with_navbar.html" %}
 
-  <body>
-    <form class="post-form" method="post" autocomplete="off" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="title">
-        {{ form.title|add_class:"st-input"|add_error_class:"error"|attr:"placeholder:제목을 입력하세요" }}
-        {% for error in form.title.errors %}
-          <div class="error-message">{{ error }}</div>
-        {% endfor %}
-      </div>
-      <div class="content">
-        {{ form.content|add_class:"st-input"|add_error_class:"error"|attr:"placeholder:내용을 입력하세요" }}
-        {% for error in form.content.errors %}
-          <div class="error-message">{{ error }}</div>
-        {% endfor %}
-      </div>
-      <div class="price">
-        {{ form.price|add_class:"st-input"|add_error_class:"error"|attr:"placeholder:가격을 입력해주세요" }}
-        {% for error in form.price.errors %}
-          <div class="error-message">{{ error }}</div>
-        {% endfor %}
-      </div>
-      <div class="file">
-        <div class="file-input">
-          {% if post.image1 %}
-            <div class="input_img">
-              <img class="input_img" src="{{ post.image1.url }}" width="300" height="300"/>
-            </div>
-            <br/>
-            <div>
-              <div class="aaa"></div>
-            {% endif %}
-            {{ form.image1 }}
-            {% for error in form.image1.errors %}
-              <div class="error-message">{{ error }}</div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="file">
-      <div class="file-input">
-        {% if post.image2 %}
-          <div class="input_img">
-            <img src="{{ post.image2.url }}" width="300" height="300">
-          </div>
-          <br>
-          <div>
-            <div class="aaa"></div>
-          {% endif %}
-          {{ form.image2 }}
-          {% for error in form.image2.errors %}
-          </p>
-          <div class="error-message">{{ error }}</div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</div>
-<div class="file">
-  <div class="file-input">
-    {% if post.image3 %}
-      <div class="input_img">
-        <img class="input_img" src="{{ post.image3.url }}" width="300" height="300">
-      </div>
-      <br>
-      <div>
-        <div class="aaa"></div>
-      {% endif %}
-      {{ form.image3 }}
-      {% for error in form.image3.errors %}
-        <div class="error-message">{{ error }}</div>
-      {% endfor %}
-    </div>
-  </div>
-</div>
-</div>
-<div class="buttons">
-{% if form.is_sold %}
-  <div class="is-sold">
-    <label for="{{ form.is_sold.id_for_label }}">거래 완료</label>
-    {{ form.is_sold }}
-    {% for error in form.is_sold.errors %}
+{% load widget_tweaks %}
+
+{% block title %}{% if post %}{{ post.title }}{% else %}새 게시글 작성{% endif %} | 포도마켓{% endblock title %}
+
+{% block content %}
+<form class="post-form" method="post" autocomplete="off" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="title">
+    {{ form.title|add_class:"podo-input"|add_error_class:"error"|attr:"placeholder:제목" }}
+    {% for error in form.title.errors %}
       <div class="error-message">{{ error }}</div>
     {% endfor %}
   </div>
-{% endif %}
-<button class="button_cancel">
-  <a class="podo-button large secondary cancel" href="{% if post %}{% url 'post-detail' post.id %}{% else %}{% url 'index' %}{% endif %}">
-    취소
-  </a>
-</button>
-<button class="button_submit" type="submit">완료</button>
-</div>
+  <div class="price">
+    {{ form.price|add_class:"podo-input"|add_error_class:"error"|attr:"placeholder:판매 가격" }}
+    {% for error in form.item_price.errors %}
+      <div class="error-message">{{ error }}</div>
+    {% endfor %}
+  </div>  
+  <div class="detail">
+    {{ form.content|add_class:"podo-input"|add_error_class:"error"|attr:"placeholder:상세 정보" }}
+    {% for error in form.title.errors %}
+      <div class="error-message">{{ error }}</div>
+    {% endfor %}
+  </div>
+  <div class="file">
+    <div class="podo-input file-input">
+      {% if post.image1 %}
+        <img class="file-thumb" src="{{ post.image1.url }}">
+      {% endif %}
+      <div class="file-content">
+        {{ form.image1 }}
+      </div>
+    </div>
+    {% for error in form.image1.errors %}
+      <div class="error-message">{{ error }}</div>
+    {% endfor %}
+  </div>
+  <div class="file">
+    <div class="podo-input file-input">
+      {% if post.image2 %}
+        <img class="file-thumb" src="{{ post.image2.url }}">
+      {% endif %}
+      <div class="file-content">
+        {{ form.image2 }}
+      </div>
+    </div>
+    {% for error in form.image2.errors %}
+      <div class="error-message">{{ error }}</div>
+    {% endfor %}
+  </div>
+  <div class="file">
+    <div class="podo-input file-input">
+      {% if post.image3 %}
+        <img class="file-thumb" src="{{ post.image3.url }}">
+      {% endif %}
+      <div class="file-content">
+        {{ form.image3 }}
+      </div>
+    </div>
+    {% for error in form.image3.errors %}
+      <div class="error-message">{{ error }}</div>
+    {% endfor %}
+  </div>
+  {% if form.is_sold %}
+    <div class="is-sold">
+      <label for="{{ form.is_sold.id_for_label }}">거래 완료</label>
+      {{ form.is_sold }}
+      {% for error in form.is_sold.errors %}
+        <div class="error-message">{{ error }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  <div class="buttons">
+    <a
+      class="podo-button large secondary cancel"
+      href="{% if post %}{% url 'post-detail' post.id %}{% else %}{% url 'index' %}{% endif %}"
+    >
+      취소
+    </a>
+    <button class="podo-button large primary submit" type="submit">완료</button>
+  </div>
 </form>
-</body>
-
-</html>
+{% endblock content %}
