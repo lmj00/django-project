@@ -15,6 +15,7 @@
 
   <div class="posts">
     {% for post in posts %}
+    <a href="{% url 'post-detail' post.id %}">
       <div class="podo-card post">
         <img class="thumb" src="{{ post.image1.url }}" alt="썸네일 이미지">
         <div class="content">
@@ -28,9 +29,9 @@
             <!--{{ post.dt_created|date:"Y.m.d" }&nbsp;|}&nbsp;-->
             {{ post.author.address }}
           </div>
-          <a class="podo-button primary button" href="{% url 'post-detail' post.id %}">자세히보기</a>
         </div>
       </div>
+    </a>
     {% empty %}
       <p class="empty">판매중인 상품이 없어요 :(</p>
     {% endfor %}
