@@ -1,6 +1,6 @@
 from django.urls import reverse, reverse_lazy
 from shop.forms import PostCreateForm, PostUpdateForm
-from shop.models import Post, User
+from .models import Post, User
 from django.views.generic import (
     ListView, 
     DetailView, 
@@ -133,5 +133,8 @@ class ProfileView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_id = self.kwargs.get('user_id')
-        context['user_articles'] = Post.objects.filter(author__id=user_id).order_by("-dt_created")
+        query_set = Post.objects.filter(author__id=user_id).order_by("-dt_created")
+        context['user_articles'] = query_set
+        context['user_articles_count'] = len(query_set)
+        
         return context
