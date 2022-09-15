@@ -107,9 +107,20 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class PostDistanceView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'shop/post_distance.html'
+    context_object_name = 'distance_list'
 
     def get_queryset(self):
-        bar = self.request.GET.get('bar')
+        bar = int(self.request.GET.get('bar'))
+        
+        if bar == 1:
+            bar = 1
+        elif bar == 2:
+            bar = 5
+        elif bar == 3:
+            bar = 10
+        elif bar == 4:
+            bar = 700
+
         start = float(self.request.user.lat), float(self.request.user.lon)
         value = Post.objects.values()
         distance_list = []
@@ -118,7 +129,7 @@ class PostDistanceView(LoginRequiredMixin, ListView):
             goal = i['lat'], i['lon']
             distance = haversine(start, goal) 
 
-            if int(bar) > distance:
+            if bar > distance:
                 distance_list.append(Post.objects.get(id=i['id'])) 
         
         return distance_list

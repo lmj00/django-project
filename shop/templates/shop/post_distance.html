@@ -11,7 +11,7 @@
       <form method="get" action="{% url 'post-distance' %}">
         <div class="container">
           <label for="customRange2" class="form-label">거리 조절</label>
-          <input type="range" class="form-range" name="bar" min="0" max="5" id="customRange2">
+          <input type="range" class="form-range" name="bar" min="1" max="4" id="customRange2">
           <button>검색</button>
         </div>
       </form>
@@ -23,7 +23,7 @@
   </div>
 
   <div class="posts">
-    {% for post in posts %}
+    {% for post in distance_list %}
     <a href="{% url 'post-detail' post.id %}">
       <div class="podo-card post">
         <img class="thumb" src="{{ post.image1.url }}" alt="썸네일 이미지">
