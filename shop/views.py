@@ -12,6 +12,8 @@ from braces.views import LoginRequiredMixin, UserPassesTestMixin
 from allauth.account.models import EmailAddress
 from member.functions import confirmation_required_redirect
 from django.db.models import Q
+from django.shortcuts import render
+
 from haversine import haversine
 
 # Create your views here.
@@ -149,3 +151,15 @@ class ProfileView(DetailView):
         context['user_articles_count'] = len(query_set)
         
         return context
+
+
+def permission_denied(request, exception): 
+    response = render(request, "403.html", {})
+    response.status_code = 403
+    return response
+
+
+def page_not_found(request, exception):
+    response = render(request, "404.html", {})
+    response.status_code = 404
+    return response
