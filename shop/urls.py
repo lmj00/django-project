@@ -1,5 +1,11 @@
 from django.urls import path
 from . import views
+from django.conf.urls import (
+    handler403, handler404
+)
+
+handler403 = 'shop.views.permission_denied'
+handler404 = 'shop.views.page_not_found'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name = 'index'),
