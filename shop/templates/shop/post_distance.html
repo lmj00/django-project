@@ -12,14 +12,15 @@
         <div class="container">
           <label for="customRange2" class="form-label">거리 조절</label>
           <input type="range" class="form-range" name="bar" min="1" max="4" id="customRange2">
-          <button>검색</button>
+          <button><i class="bi bi-geo-alt-fill"></i></button>
         </div>
       </form>
     {% endif %}
-    <a class="link" href="{% url 'post-create' %}">
-      <img class="pen-icon" src="{% static 'podomarket/icons/ic-pen.svg' %}" alt="pen icon">
-      <span>글쓰기</span>
-    </a>
+    <div class="write_btn">
+      <a class="link" href="{% url 'post-create' %}">
+        <span><i class="bi bi-pencil-fill">&nbsp;글쓰기</i></span>
+      </a>
+      </div>
   </div>
 
   <div class="posts">

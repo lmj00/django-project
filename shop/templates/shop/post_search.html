@@ -17,10 +17,11 @@
         </div>
       </form>
     {% endif %}
-    <a class="link" href="{% url 'post-create' %}">
-      <img class="pen-icon" src="{% static 'podomarket/icons/ic-pen.svg' %}" alt="pen icon">
-      <span>글쓰기</span>
-    </a>
+    <div class="write_btn">
+      <a class="link" href="{% url 'post-create' %}">
+        <span><i class="bi bi-pencil-fill">&nbsp;글쓰기</i></span>
+      </a>
+      </div>
   </div>
 
   <div class="posts">
