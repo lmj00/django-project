@@ -7,24 +7,29 @@
 {% block header %}
 <header class="site-header">
   <a class="logo" href="{% url 'index' %}">
-    {% comment %} <img src="{% static '/assets/logo.svg' %}" alt="소금마켓"> {% endcomment %}
+    <img src="{% static 'assets/salt_logo.svg' %}" alt="소금마켓">
   </a>
   <nav>
     <ul class="menu">
       <form method="GET" action="{% url 'post-search' %}">
         <div class="search_button">
-            <input name="searched" type="text" placeholder="Search" aria-label="Search">
-            <button type="submit">Search</button>
+            <input name="searched" class="search_input" type="text" placeholder="Search" aria-label="Search">
+            <button class="search_btn" type="submit"><i class="bi bi-search" id="ser_img"></i></button>
         </div>
       </form> 
       
+      <div class="menu_nav">
       {% if user.is_authenticated %}
         <li class="menu-item user-menu"><a href="{% url 'profile' user.id %}">내 프로필</a></li>
+        <li class="menu-item user-menu"><a href="{% url 'account_login' %}">채팅하기</a></li>
         <li class="menu-item user-menu"><a href="{% url 'account_logout' %}">로그아웃</a></li>
+        
       {% else %}
         <li class="menu-item guest-menu"><a class="podo-chip" href="{% url 'account_login' %}">로그인</a></li>
         <li class="menu-item guest-menu"><a class="podo-chip" href="{% url 'account_signup' %}">회원가입</a></li>
+        <li class="menu-item guest-menu"><a class="podo-chip" href="{% url 'account_login' %}">채팅하기</a></li>
       {% endif %}
+    </div>
     </ul>
   </nav>
 </header>
