@@ -6,15 +6,15 @@
   --max-content-width: 1060px;
   --body-background: #fafafa;
   --site-header-background: #ffffff;
-  --site-body-border-top: #883ff9;
+  --site-body-border-top: #476bed;
   --site-header-border-bottom: #d9d9d9;
-  --site-header-user-menu-hover: #7644c3;
+  --site-header-user-menu-hover: #476bed;
   --site-header-guest-menu: #d9d9d9;
   --site-foooter: #adaab0;
   --site-footer-background: #f2f2f2;
   --post-list-meta: #706e6c;
   --post-list-pagination: #ffffff;
-  --post-list-pagination-background: #7644c3;
+  --post-list-pagination-background: #476bed;
   --post-detail-date: #706e6c;
   --post-sold: #b9b7ba;
   --profile-pic-placeholder: #f3f3f3;
@@ -41,7 +41,7 @@ body.with-border {
   border-top: 8px solid var(--site-body-border-top);
 }
 
-body.with-background {
+/* body.with-background {
   background-image:
     url('../assets/bg-left.svg'),
     url('../assets/bg-right.svg');
@@ -52,7 +52,7 @@ body.with-background {
   background-size:
     230px,
     211px;
-}
+} */
 
 .site-header {
   padding: 22px 0 26px;
@@ -64,15 +64,66 @@ body.with-background {
   display: block;
   width: min-content;
   margin: 0 auto;
+
 }
 
-.site-header .menu {
+.site-header .logo img{
+  width: 200px;
+}
+
+.site-header .menu .menu_nav {
+  display: flex;
+  list-style: none;
+  margin-top: -20px;
+  margin-bottom: 50px;
+  margin-right: 20px;
+  padding: 0;
+  justify-content: right;
+
+}
+
+.search_button{
   display: flex;
   list-style: none;
   margin: 26px 0 0;
   padding: 0;
   justify-content: center;
 }
+.search_input {
+  width: 500px;
+  height: 50px;
+  border-radius: 15px;
+  border-bottom-color: rgb(121, 121, 121);
+
+}
+
+.search_input:hover {
+  border-color: #476bed;
+}
+
+.search_input:active {
+  border-color: #476bed;
+}
+.search_input:visited {
+  border-color: #476bed;
+}
+
+
+.search_btn {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.search_btn #ser_img {
+  background-color: transparent;
+  border-radius: 0px;
+  border-color: white;
+  cursor:pointer;
+  font-size:24px;
+
+}
+
 
 .site-header .menu-item.guest-menu:not(:last-child) {
   margin-right: 18px;
@@ -112,8 +163,8 @@ body.with-background {
 }
 
 .site-simple-header .logo {
-  width: 92px;
-  height: 50px;
+  width: 300px;
+  height: 200px;
 }
 
 .site-main {
@@ -587,8 +638,8 @@ body.with-background {
 .login .logo,
 .signup .logo {
   display: block;
-  width: 164px;
-  height: 90px;
+  width: 300px;
+  height: 150px;
   margin: 0 auto 47px;
 }
 
@@ -791,3 +842,21 @@ body.with-background {
   margin-left: 25px;
   white-space: nowrap;
 }
+
+/* range_button */
+
+.header .container {
+  float: right;
+  margin-right: -500px;
+}
+
+.form-range{
+  background: #476bed;
+  color: #476bed;
+}
+
+.write_btn {
+  margin-top: 0px;
+  margin-right: -200px;
+}
+

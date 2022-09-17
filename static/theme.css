@@ -5,32 +5,32 @@
 
 :root {
   --text: #2f2c28;
-  --link: #7644c3;
+  --link: #476bed;
   --button: #fff;
-  --button-background: #7644c3;
+  --button-background: #476bed;
   --button-decoration: #4eda7d;
-  --button-hover-background: #9264d8;
+  --button-hover-background: #476bed;
   --button-hover-decoration: #89efab;
   --button-negative-background: #d62f50;
   --button-negative-hover: #fcd3d3;
   --button-secondary-background: #b9b7ba;
   --button-secondary-hover: #e0e0e0;
-  --button-purple: #552899;
+  --button-purple: #476bed;
   --button-purple-background: #e4d4fa;
-  --button-darkpurple-background: #552899;
+  --button-darkpurple-background: #476bed;
   --button-darkgray-background: #c6c6cc;
 
   --input-background: #f3f3f3;
   --input-placeholder: #8a95a0;
   --input-focus-background: #f5f0fc;
-  --input-focus-border: #7644c3;
+  --input-focus-border: #476bed;
   --input-error: #e6584e;
   --input-error-background: #fcf1f0;
   --input-error-border: #d62f50;
 
-  --chip-primary: #7644c3;
+  --chip-primary: #476bed;
   --chip-primary-background: #f5f0fc;
-  --chip-primary-border: #7644c3;
+  --chip-primary-border: #476bed;
   --chip-border: #d9d9d9;
 
   --card-background: #fff;
@@ -39,7 +39,7 @@
   --box-gray-background: #f3f3f3;
 
   --noti-background: #f4f3f6;
-  --noti-purple: #552899;
+  --noti-purple: #476bed;
   --noti-purple-background: #f5f0fc;
 
   --links-divider: #979797;
