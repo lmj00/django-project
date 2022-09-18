@@ -41,7 +41,7 @@ body.with-border {
   border-top: 8px solid var(--site-body-border-top);
 }
 
-/* body.with-background {
+body.with-background {
   background-image:
     url('../assets/bg-left.svg'),
     url('../assets/bg-right.svg');
@@ -52,7 +52,7 @@ body.with-border {
   background-size:
     230px,
     211px;
-} */
+}
 
 .site-header {
   padding: 22px 0 26px;
@@ -74,11 +74,11 @@ body.with-border {
 .site-header .menu .menu_nav {
   display: flex;
   list-style: none;
-  margin-top: -20px;
+  margin-top: -50px;
   margin-bottom: 50px;
   margin-right: 20px;
   padding: 0;
-  justify-content: right;
+  justify-content: center;
 
 }
 
@@ -90,10 +90,15 @@ body.with-border {
   justify-content: center;
 }
 .search_input {
-  width: 500px;
+  width: 400px;
   height: 50px;
   border-radius: 15px;
   border-bottom-color: rgb(121, 121, 121);
+
+}
+
+.search_form { 
+  margin-top: 100px;
 
 }
 
@@ -640,7 +645,7 @@ body.with-border {
   display: block;
   width: 300px;
   height: 150px;
-  margin: 0 auto 47px;
+  margin: -80px auto 47px;
 }
 
 .login .email {
@@ -846,13 +851,15 @@ body.with-border {
 /* range_button */
 
 .header .container {
-  float: right;
-  margin-right: -500px;
+  margin-left: -250px;
+  float: center;
+  
 }
 
 .form-range{
   background: #476bed;
   color: #476bed;
+  width: 400px;
 }
 
 .write_btn {
@@ -860,3 +867,15 @@ body.with-border {
   margin-right: -200px;
 }
 
+
+/* signup_position */
+
+.signup_position { 
+
+  text-align: right;
+  font-size: 25px;
+  margin-top: -48px;
+  margin-bottom: 80px;
+  margin-right: 30px;
+
+}
