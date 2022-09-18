@@ -92,12 +92,12 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     pk_url_kwarg = 'post_id'
-    success_url = reverse_lazy('posts')
+    success_url = reverse_lazy('index')
 
     raise_exception = True
 
     def get_success_url(self):
-        return reverse('posts')
+        return reverse('index')
 
     def get(self, *args, **kwargs):
         return self.post(*args, **kwargs)
