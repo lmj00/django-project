@@ -11,12 +11,7 @@
   </a>
   <nav>
     <ul class="menu">
-      <form method="GET" action="{% url 'post-search' %}">
-        <div class="search_button">
-            <input name="searched" class="search_input" type="text" placeholder="Search" aria-label="Search">
-            <button class="search_btn" type="submit"><i class="bi bi-search" id="ser_img"></i></button>
-        </div>
-      </form> 
+      
       
       <div class="menu_nav">
       {% if user.is_authenticated %}
@@ -33,6 +28,14 @@
     </ul>
   </nav>
 </header>
+
+<form class="search-form" method="GET" action="{% url 'post-search' %}">
+  <div class="search_button">
+      <input name="searched" class="search_input" type="text" placeholder="Search" aria-label="Search">
+      <button class="podo-button darkpurple" type="submit"><i class="bi bi-search" id="ser_img"></i></button>          
+  </div>
+</form> 
+
 {% endblock header %}
 
 {% block footer %}
