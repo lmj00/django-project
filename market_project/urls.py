@@ -51,7 +51,7 @@ urlpatterns = [
     path('', include('allauth.urls')), 
     
     # chat
-    path('', include('chat.urls')),
+    path('chat/', include('chat.urls')),
 ]
 
 # media
