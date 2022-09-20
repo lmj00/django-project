@@ -1,7 +1,11 @@
 from django.shortcuts import render
+from shop.models import Post
 
 # Create your views here.
-def room(request, room_name):
+def room(request, post_id):
+    post = Post.objects.get(id__icontains=post_id)
+    
     return render(request, 'chat/room.html', {
-        'room_name': room_name 
+        'post_id': post_id,
+        'post_author_id': post.author.id
     })
