@@ -6,23 +6,24 @@ from .models import User
 from shop.models import Post
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    
     @database_sync_to_async
     def save_message(self, user_id, post_id, message):
-        post = Post.objects.get(id__icontains=post_id)
+        pass
 
-        check_user = len(Room.objects.filter(user_id=user_id))
-        check_post = len(Room.objects.filter(post_id=post_id))
+        
+        #   room = Room.objects.get(post_id=post_id, buyer_id=user_id)
+        # if user_id != post.author.id:
+        #     buyer_id = user_id
+        
+        #   room = Room.objects.get(post_id=post_id, buyer_id=user_id)
+        # Message.objects.create(
+        #     roomname = room,
+        #     content = message,
+        #     post_id = post_id,
+        #     user_id = user_id
+        # )
 
-        if check_user > 0 and check_post > 0:
-            test = Room.objects.get(user_id=user_id, post_id=post_id)
-            print(test)
-        else:
-            if user_id != post.author.id:
-                Room.objects.create(user_id=user_id, post_id=post_id, last_content="")
-
-    #   Message.objects.create(
-    #         seller=seller_id, buyer=buyer_id, content=message
-    #     )
 
 
     async def connect(self):
@@ -32,7 +33,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Join room group
         await self.channel_layer.group_add(
             self.room_group_name,
-            self.channel_name
+            self.channel_name,
         )
 
         await self.accept()
@@ -49,24 +50,36 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']   
-        user_id = text_data_json['user_id']
+        self.user = self.scope["user"]
         post_id = text_data_json['post_id']
-        
+        author_nickname = Post.objects.get(id=post_id).author.nickname
+
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'chat_message',
                 'message': message,
+                'user_nickname': self.user.nickname,
+                'author_nickname': author_nickname 
             }
         )    
 
-        await self.save_message(user_id, post_id, message)
+        # await self.save_message(self.user.id, post_id, message)
 
     # Receive message from room group
     async def chat_message(self, event):
         message = event['message']
+    
+        nickname = ''
 
+        if event['user_nickname'] == event['author_nickname']:
+            nickname = event['author_nickname']
+        else:
+            nickname = event['user_nickname']
+
+        message = nickname + ': ' + message
+            
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'message': message,
