@@ -7,13 +7,18 @@ class Room(models.Model):
     # post_id = models.ForeignKey(Post, on_delete=models.PROTECT)
     # user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     post_id = models.IntegerField()
-    user_id = models.IntegerField()
+    seller_id = models.IntegerField()
+    buyer_id = models.IntegerField()
     last_content = models.TextField(blank=True)
 
 
 class Message(models.Model):
     roomname = models.ForeignKey(Room, on_delete=models.PROTECT)
     content = models.TextField()       
-    post = models.ForeignKey(Post, on_delete=models.PROTECT)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_id = models.IntegerField()
+    user_id = models.IntegerField()
     timestmap = models.DateTimeField(auto_now=True)
+
+    # post = models.ForeignKey(Post, on_delete=models.PROTECT)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+
