@@ -8,22 +8,13 @@ from shop.models import Post
 class ChatConsumer(AsyncWebsocketConsumer):
     
     @database_sync_to_async
-    def save_message(self, user_id, post_id, message):
-        pass
-
-        
-        #   room = Room.objects.get(post_id=post_id, buyer_id=user_id)
-        # if user_id != post.author.id:
-        #     buyer_id = user_id
-        
-        #   room = Room.objects.get(post_id=post_id, buyer_id=user_id)
-        # Message.objects.create(
-        #     roomname = room,
-        #     content = message,
-        #     post_id = post_id,
-        #     user_id = user_id
-        # )
-
+    def save_message(self, room, user_id, post_id, message):
+        Message.objects.create(
+            roomname = room,
+            content = message,
+            post_id = post_id,
+            user_id = user_id
+        )
 
 
     async def connect(self):
@@ -52,7 +43,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json['message']   
         self.user = self.scope["user"]
         post_id = text_data_json['post_id']
+
         author_nickname = Post.objects.get(id=post_id).author.nickname
+        room = Room.objects.get(id=text_data_json['room'])
 
         # Send message to room group
         await self.channel_layer.group_send(
@@ -65,7 +58,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
         )    
 
-        # await self.save_message(self.user.id, post_id, message)
+        await self.save_message(room, self.user.id, post_id, message)
 
     # Receive message from room group
     async def chat_message(self, event):
