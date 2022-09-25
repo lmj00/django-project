@@ -40,13 +40,17 @@
     </div>
     <div class="address">
       {{ form.address|add_class:"podo-input"|attr:"placeholder:위치를 정해주세요."|add_error_class:"error" }}
+      <div class="signup_position">
+        <a href="#" onclick="addressSearch();" role="button"><i class="bi bi-geo-alt-fill"></i></a> 
+      </div>
       {% for error in form.password2.errors %}
         <div class="error-message">{{ error }}</div>
       {% endfor %}
     </div>
     <!-- css 필요-->
-    <a href="#" onclick="addressSearch();" role="button"><span>주소찾기</span></a> 
-    <button class="podo-button large primary submit" type="submit">회원가입</button>
+    
+      <button class="podo-button large primary submit" type="submit">회원가입</button>
+   
   </form>
 
   <div class="footer">
