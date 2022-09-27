@@ -11,9 +11,17 @@
     {% if user.is_authenticated %}
       <form method="get" action="{% url 'post-distance' %}">
         <div class="container">
-          <label for="customRange2" class="form-label">거리 조절</label>
-          <input type="range" class="form-range" name="bar" min="0" max="5" id="customRange2">
-          <button><i class="bi bi-geo-alt-fill"></i></button>
+          <label for="customRange2" class="form-label"></label>
+          <input type="range" class="form-range" name="bar" min="0" max="5" id="customRange2" list="form_range_div">
+          <datalist id="form_range_div">
+            <option value="0"></option>
+            <option value="1"></option>
+            <option value="2"></option>
+            <option value="3"></option>
+            <option value="4"></option>
+            <option value="5"></option>
+          </datalist>
+          <button class="range_button"><i class="bi bi-geo-alt-fill"></i></button>
         </div>
       </form>
     {% endif %}
