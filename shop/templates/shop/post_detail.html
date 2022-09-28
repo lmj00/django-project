@@ -32,23 +32,17 @@
 
   <!-- Full-width images with number and caption text -->
   <div class="mySlides fade">
-    <div class="numbertext">1 / 3</div>
-    <img src="{{ post.image1.url }}" style="width:100%" height="450px">
-    <div class="text">Caption 1</div>
+    <img class="slide_img" src="{{ post.image1.url }}" style="width:100%" height="500px">
   </div>
   {% if post.image2 %}
 
   <div class="mySlides fade">
-    <div class="numbertext">2 / 3</div>
-    <img src="{{ post.image2.url }}" style="width:100%" height="450px">
-    <div class="text">Caption Two</div>
+    <img class="slide_img2" src="{{ post.image2.url }}" style="width:100%" height="500px">
   </div>
   {% endif %}
   {% if post.image3 %}
   <div class="mySlides fade">
-    <div class="numbertext">3 / 3</div>
-    <img src="{{ post.image3.url }}" style="width:100%" height="450px">
-    <div class="text">Caption Three</div>
+    <img class="slide_img3" src="{{ post.image3.url }}" style="width:100%" height="500px">
   </div>
   {% endif %} 
   <!-- Next and previous buttons -->
@@ -79,12 +73,10 @@
       <h4 class="content">{{ post.content }}</h2>
       {% if post.is_sold %}<div class="is-sold">거래완료</div>{% endif %}
     </div>
-    {% if user.is_authenticated %}
-      {% if user.id != post.author.id %}
-        <a href="{% url 'room' post.id user.id %}">채팅하기</a>
-      {% endif %}
-      <a href="{% url 'room_list' user.id %}">채팅 목록</a>
+    {% if user.id != post.author.id %}
+      <a href="{% url 'room' post.id user.id %}">채팅하기</a>
     {% endif %}
+    <a href="{% url 'room_list' user.id %}">채팅 목록</a>
     <a class="profile-link" href="{% url 'profile' post.author.id %}">
       <div class="podo-box gray-background profile">
         <div class="profile-pic" style="background-image: url('{{ post.author.profile_pic.url }}')"></div>
