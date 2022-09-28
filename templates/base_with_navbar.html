@@ -25,16 +25,16 @@
         <li class="menu-item guest-menu"><a class="podo-chip" href="{% url 'account_login' %}">채팅하기</a></li>
       {% endif %}
     </div>
+  
+    <form class="search-form" method="GET" action="{% url 'post-search' %}">
+      <div class="search_button">
+          <input name="searched" class="search_input" type="text" placeholder="  Search" aria-label="Search">
+          <!-- <button class="podo-button darkpurple" type="submit"><i class="bi bi-search" id="ser_img"></i></button>           -->
+      </div>
+    </form> 
     </ul>
   </nav>
 </header>
-
-<form class="search-form" method="GET" action="{% url 'post-search' %}">
-  <div class="search_button">
-      <input name="searched" class="search_input" type="text" placeholder="  Search" aria-label="Search">
-      <!-- <button class="podo-button darkpurple" type="submit"><i class="bi bi-search" id="ser_img"></i></button>           -->
-  </div>
-</form> 
 
 {% endblock header %}
 
