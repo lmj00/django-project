@@ -3,168 +3,147 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}{{ post.title }} | 소금마켓{% endblock title %}
+{% block title %}
+  {{ post.title }} | 소금마켓
+{% endblock title %}
 
 {% block content %}
-<div class="post-detail">
-  <div class="header">
-    <a href="{% url 'index' %}">&lt; 목록으로</a>
-    {% if post.author == user %}
-      <div class="buttons">
-        <a class="podo-button small negative" onclick="return deleteCheck()" href="{% url 'post-delete' post.id %}">삭제</a>
-        <a class="podo-button small secondary" href="{% url 'post-update' post.id %}">수정</a>
-      </div>
-    {% endif %}
-  </div>
-
-  
-  <article>
-
-  <!-- <img class="image" src="{{ post.image1.url }}">
-  {% if post.image2 %}
-    <img class="image" src="{{ post.image2.url }}">
-  {% endif %}
-  {% if post.image3 %}
-    <img class="image" src="{{ post.image3.url }}">
-  {% endif %} -->
-  <!-- Slideshow container -->
-<div class="slideshow-container">
-
-  <!-- Full-width images with number and caption text -->
-  <div class="mySlides fade">
-    <img class="slide_img" src="{{ post.image1.url }}" style="width:100%" height="500px">
-  </div>
-  {% if post.image2 %}
-
-  <div class="mySlides fade">
-    <img class="slide_img2" src="{{ post.image2.url }}" style="width:100%" height="500px">
-  </div>
-  {% endif %}
-  {% if post.image3 %}
-  <div class="mySlides fade">
-    <img class="slide_img3" src="{{ post.image3.url }}" style="width:100%" height="500px">
-  </div>
-  {% endif %} 
-  <!-- Next and previous buttons -->
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
-</div>
-<br>
-
-<!-- The dots/circles -->
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  {% if post.image2 %}
-  <span class="dot" onclick="currentSlide(2)"></span>
-  {% endif %}
-  {% if post.image3 %}
-  <span class="dot" onclick="currentSlide(3)"></span>
-  {% endif %} 
-</div>
-
- 
-
-    <div class="post-meta">
-      <h2 class="title">{{ post.title }}</h2>
-      <div class="item-info">
-        <div class="item-price {% if post.is_sold %}sold{% endif %}">{{ post.price|intcomma }}원</div>
-        <span class="date">{{ post.dt_created|date:"Y.m.d" }}</span>
-      </div>
-      <h4 class="content">{{ post.content }}</h2>
-      {% if post.is_sold %}<div class="is-sold">거래완료</div>{% endif %}
-    </div>
-    {% if user.id != post.author.id %}
-      <a href="{% url 'room' post.id user.id %}">채팅하기</a>
-    {% endif %}
-    <a href="{% url 'room_list' user.id %}">채팅 목록</a>
-    <a class="profile-link" href="{% url 'profile' post.author.id %}">
-      <div class="podo-box gray-background profile">
-        <div class="profile-pic" style="background-image: url('{{ post.author.profile_pic.url }}')"></div>
-        <div class="profile-info">
-          <div class="nickname">{{ post.author.nickname }}</div>
-          <ul class="podo-links">
-            <li>{{ post.author.kakao_id }}</li>
-            <li class="divider"></li>
-            <li>{{ post.author.address }}</li>
-          </ul>
+  <div class="post-detail">
+    <div class="header">
+      <a href="{% url 'index' %}">&lt; 목록으로</a>
+      {% if post.author == user %}
+        <div class="buttons">
+          <a class="podo-button small negative" onclick="return deleteCheck()" href="{% url 'post-delete' post.id %}">삭제</a>
+          <a class="podo-button small secondary" href="{% url 'post-update' post.id %}">수정</a>
         </div>
+      {% endif %}
+    </div>
+
+    <article>
+
+      <!-- <img class="image" src="{{ post.image1.url }}"> {% if post.image2 %} <img class="image" src="{{ post.image2.url }}"> {% endif %} {% if post.image3 %} <img class="image" src="{{ post.image3.url }}"> {% endif %} -->
+      <!-- Slideshow container -->
+      <div class="slideshow-container">
+
+        <!-- Full-width images with number and caption text -->
+        <div class="mySlides fade">
+          <img class="slide_img" src="{{ post.image1.url }}" style="width:100%" height="500px">
+        </div>
+        {% if post.image2 %}
+
+          <div class="mySlides fade">
+            <img class="slide_img2" src="{{ post.image2.url }}" style="width:100%" height="500px">
+          </div>
+        {% endif %}
+        {% if post.image3 %}
+          <div class="mySlides fade">
+            <img class="slide_img3" src="{{ post.image3.url }}" style="width:100%" height="500px">
+          </div>
+        {% endif %}
+        <!-- Next and previous buttons -->
+        {% if post.image2 %}
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        {% endif %}
       </div>
-    </a>
+      <br>
 
-    <p class="item-detail">
-      {{ post.item_details|linebreaksbr }}
-    </p>
-  </article>
-</div>
+      <!-- The dots/circles -->
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        {% if post.image2 %}
+          <span class="dot" onclick="currentSlide(2)"></span>
+        {% endif %}
+        {% if post.image3 %}
+          <span class="dot" onclick="currentSlide(3)"></span>
+        {% endif %}
+      </div>
 
-<script>
-  function deleteCheck() {
+      <div class="post-meta">
+        <h2 class="title">{{ post.title }}</h2>
+        <div class="item-info">
+          <div class="item-price {% if post.is_sold %}sold{% endif %}">{{ post.price|intcomma }}원</div>
+          <span class="date">{{ post.dt_created|date:"Y.m.d" }}</span>
+        </div>
+        <h4 class="content">{{ post.content }}</h2>
+        {% if post.is_sold %}
+          <div class="is-sold">거래완료</div>
+        {% endif %}
+      </div>
+      {% if user.is_authenticated %}
+        {% if user.id != post.author.id %}
+          <a href="{% url 'room' post.id user.id %}">채팅하기</a>
+        {% endif %}
+        <a href="{% url 'room_list' user.id %}">채팅 목록</a>
+      {% endif %}
+
+      <a class="profile-link" href="{% url 'profile' post.author.id %}">
+        <div class="podo-box gray-background profile">
+          <div class="profile-pic" style="background-image: url('{{ post.author.profile_pic.url }}')"></div>
+          <div class="profile-info">
+            <div class="nickname">{{ post.author.nickname }}</div>
+            <ul class="podo-links">
+              <li>{{ post.author.kakao_id }}</li>
+              <li class="divider"></li>
+              <li>{{ post.author.address }}</li>
+            </ul>
+          </div>
+        </div>
+      </a>
+
+      <p class="item-detail">
+        {{ post.item_details|linebreaksbr }}
+      </p>
+    </article>
+  </div>
+
+  <script>
+    function deleteCheck() {
       if (confirm("작성글을 삭제하시겠습니까?")) {
-          return true;
+        return true;
       } else {
-          return false;
+        return false;
       }
-  }
-</script>
+    }
+  </script>
 
-<!-- <script>
-  let slideIndex = 1;
-  showSlides(slideIndex);
+  <!-- <script> let slideIndex = 1; showSlides(slideIndex); function plusSlides(n) { showSlides(slideIndex += n); } function currentSlide(n) { showSlides(slideIndex = n); } function showSlides(n) { let i; let slides = document.getElementsByClassName("mySlides"); let dots = document.getElementsByClassName("dot"); if (n > slides.length) {slideIndex = 1} if (n < 1) {slideIndex = slides.length} for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; } for (i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active", ""); } slides[slideIndex-1].style.display = "block"; dots[slideIndex-1].className += " active"; } </script> -->
 
-  function plusSlides(n) {
-  showSlides(slideIndex += n);
-  }
-
-  function currentSlide(n) {
-  showSlides(slideIndex = n);
-  }
-
-  function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-      slides[slideIndex-1].style.display = "block";  
-      dots[slideIndex-1].className += " active";
-  }
-</script> -->
-
-<script>
+  <script>
     let slideIndex = 1;
-showSlides(slideIndex);
+    showSlides(slideIndex);
 
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
+    // Next/previous controls
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
 
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
+    // Thumbnail image controls
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
 
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-}
-</script>
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {
+        slideIndex = 1
+      }
+      if (n < 1) {
+        slideIndex = slides.length
+      }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i]
+          .className
+          .replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+    }
+  </script>
 
 {% endblock content %}
