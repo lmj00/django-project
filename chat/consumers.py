@@ -2,8 +2,8 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from chat.models import Room, Message
-from .models import User
 from shop.models import Post
+
 
 class ChatConsumer(AsyncWebsocketConsumer):
     
@@ -16,7 +16,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             user_id = user_id
         )
 
-        Room.objects.filter(post_id=post_id, buyer_id=user_id).update(last_content=message)
+        Room.objects.filter(id=room.id).update(last_content=message)
 
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
