@@ -22,4 +22,9 @@ urlpatterns = [
         views.ProfileView.as_view(),
         name='profile'
     ),
+    path(
+        'edit-profile/',
+        views.ProfileSetView.as_view(),
+        name='profile-set'
+    ),
 ]

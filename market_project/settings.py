@@ -25,7 +25,7 @@ SECRET_KEY = '1w_hq@f2wn-g3#kouz@wd@0$g@6v7vxi+kri4g!bf_m8dyo6#0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -135,6 +135,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/uploads/'
 
@@ -152,7 +153,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-ACCOUNT_SIGNUP_REDIRECT_URL = 'index'
+ACCOUNT_SIGNUP_REDIRECT_URL = 'profile-set'
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'account_login'
 ACCOUNT_LOGOUT_ON_GET = True
@@ -182,3 +183,6 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# Allow async
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'

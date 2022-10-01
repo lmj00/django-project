@@ -6,7 +6,10 @@ from django.views.decorators.http import require_POST
 from django.views.generic import UpdateView, DetailView
 from member.models import User, AddressCSV
 from shop.models import Post
+from member.forms import ProfileForm
+from braces.views import LoginRequiredMixin
 from allauth.account.views import PasswordChangeView
+
 import json
 
 
@@ -72,3 +75,15 @@ class ProfileView(DetailView):
         context['user_articles_count'] = len(query_set)
         
         return context
+
+
+class ProfileSetView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = ProfileForm
+    template_name = 'member/profile_set_form.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('index')
