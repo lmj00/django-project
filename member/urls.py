@@ -27,4 +27,9 @@ urlpatterns = [
         views.ProfileSetView.as_view(),
         name='profile-set'
     ),
+    path(
+        'edit-profile/',
+        views.ProfileUpdateView.as_view(),
+        name='profile-update'
+    )
 ]

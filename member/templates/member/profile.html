@@ -16,6 +16,16 @@
       <li>{{ profile_user.address }}</li>
     </ul>
   </div>
+  {% if user == profile_user %}
+  <div class="buttons">
+    <a class="podo-button small secondary" href="{% url 'profile-update' %}">
+      프로필 수정
+    </a>
+    <a class="podo-button small secondary" href="{% url 'account_change_password' %}">
+      비밀번호 변경
+    </a>
+  </div>
+{% endif %}
 </div>
 
 <div class="post-list">
