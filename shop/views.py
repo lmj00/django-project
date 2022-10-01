@@ -135,23 +135,7 @@ class PostDistanceView(LoginRequiredMixin, ListView):
                 distance_list.append(Post.objects.get(id=i['id'])) 
         
         return distance_list
-
-
-class ProfileView(DetailView):
-    model = User
-    template_name = 'shop/profile.html'
-    pk_url_kwarg = 'user_id'
-    context_object_name = 'profile_user'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user_id = self.kwargs.get('user_id')
-        query_set = Post.objects.filter(author__id=user_id).order_by("-dt_created")
-        context['user_articles'] = query_set
-        context['user_articles_count'] = len(query_set)
         
-        return context
-
 
 def permission_denied(request, exception): 
     response = render(request, "403.html", {})

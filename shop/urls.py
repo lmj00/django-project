@@ -39,10 +39,5 @@ urlpatterns = [
         views.PostDistanceView.as_view(),
         name='post-distance'
     ),
-    path(
-        'users/<int:user_id>/',
-        views.ProfileView.as_view(),
-        name='profile'
-    ),
-    
+   
 ]

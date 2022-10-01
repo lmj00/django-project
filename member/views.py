@@ -3,11 +3,11 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from .models import AddressCSV
+from django.views.generic import UpdateView, DetailView
+from member.models import User, AddressCSV
+from shop.models import Post
 from allauth.account.views import PasswordChangeView
-
 import json
-
 
 
 # Create your views here.
@@ -56,3 +56,19 @@ def signupAddressCheck(request):
                 return JsonResponse(jsonObject)
 
         return False    
+
+
+class ProfileView(DetailView):
+    model = User
+    template_name = 'member/profile.html'
+    pk_url_kwarg = 'user_id'
+    context_object_name = 'profile_user'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.kwargs.get('user_id')
+        query_set = Post.objects.filter(author__id=user_id).order_by("-dt_created")
+        context['user_articles'] = query_set
+        context['user_articles_count'] = len(query_set)
+        
+        return context
