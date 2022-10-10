@@ -106,49 +106,33 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.get_object().author == user
 
 
-def one_km(request):
+def distance(request, km):
     distance_list = []
-
+    
     for j in Post.objects.values():
         start = float(request.user.lat), float(request.user.lon)
         goal = j['lat'], j['lon']
         distance = haversine(start, goal) 
 
-        if 1 > distance: 
+        if km > distance: 
             distance_list.append(Post.objects.get(id=j['id'])) 
 
-    context = {'posts': distance_list}
-    return render(request, 'shop/index.html', context)
+    return distance_list
+
+
+def one_km(request):    
+    posts = distance(request, 1)
+    return render(request, 'shop/index.html', {'posts':posts})
 
 
 def five_km(request):
-    distance_list = []
-
-    for j in Post.objects.values():
-        start = float(request.user.lat), float(request.user.lon)
-        goal = j['lat'], j['lon']
-        distance = haversine(start, goal) 
-
-        if 5 > distance: 
-            distance_list.append(Post.objects.get(id=j['id'])) 
-
-    context = {'posts': distance_list}
-    return render(request, 'shop/index.html', context)
+    posts = distance(request, 5)
+    return render(request, 'shop/index.html', {'posts':posts})
 
 
 def ten_km(request):
-    distance_list = []
-
-    for j in Post.objects.values():
-        start = float(request.user.lat), float(request.user.lon)
-        goal = j['lat'], j['lon']
-        distance = haversine(start, goal) 
-
-        if 10 > distance: 
-            distance_list.append(Post.objects.get(id=j['id'])) 
-
-    context = {'posts': distance_list}
-    return render(request, 'shop/index.html', context)
+    posts = distance(request, 10)
+    return render(request, 'shop/index.html', {'posts':posts})
 
 
 def all_km(request):
