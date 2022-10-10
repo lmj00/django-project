@@ -1,6 +1,4 @@
-import json
 from django.urls import reverse, reverse_lazy
-from django.http import JsonResponse
 from shop.forms import PostCreateForm, PostUpdateForm
 from .models import Post, User
 from django.views.generic import (
@@ -14,7 +12,7 @@ from braces.views import LoginRequiredMixin, UserPassesTestMixin
 from allauth.account.models import EmailAddress
 from member.functions import confirmation_required_redirect
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from haversine import haversine
 
@@ -106,6 +104,56 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self, user):
         return self.get_object().author == user
+
+
+def one_km(request):
+    distance_list = []
+
+    for j in Post.objects.values():
+        start = float(request.user.lat), float(request.user.lon)
+        goal = j['lat'], j['lon']
+        distance = haversine(start, goal) 
+
+        if 1 > distance: 
+            distance_list.append(Post.objects.get(id=j['id'])) 
+
+    context = {'posts': distance_list}
+    return render(request, 'shop/index.html', context)
+
+
+def five_km(request):
+    distance_list = []
+
+    for j in Post.objects.values():
+        start = float(request.user.lat), float(request.user.lon)
+        goal = j['lat'], j['lon']
+        distance = haversine(start, goal) 
+
+        if 5 > distance: 
+            distance_list.append(Post.objects.get(id=j['id'])) 
+
+    context = {'posts': distance_list}
+    return render(request, 'shop/index.html', context)
+
+
+def ten_km(request):
+    distance_list = []
+
+    for j in Post.objects.values():
+        start = float(request.user.lat), float(request.user.lon)
+        goal = j['lat'], j['lon']
+        distance = haversine(start, goal) 
+
+        if 10 > distance: 
+            distance_list.append(Post.objects.get(id=j['id'])) 
+
+    context = {'posts': distance_list}
+    return render(request, 'shop/index.html', context)
+
+
+def all_km(request):
+    context = {'posts': Post.objects.all()}
+    return render(request, 'shop/index.html', context)
 
 
 def permission_denied(request, exception): 

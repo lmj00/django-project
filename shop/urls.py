@@ -34,10 +34,27 @@ urlpatterns = [
         views.PostSearchView.as_view(),
         name='post-search'
     ),
+    
+    # distance
     path(
-        'posts/distance/',
-        views.PostDistanceView.as_view(),
-        name='post-distance'
+        'one/',
+        views.one_km, 
+        name='one_km'
     ),
-   
+    path(
+        'five/',
+        views.five_km, 
+        name='five_km'
+    ),
+    path(
+        'ten/',
+        views.ten_km, 
+        name='ten_km'
+    ),
+    path(
+        'all/',
+        views.all_km, 
+        name='all_km'
+    ),
+
 ]

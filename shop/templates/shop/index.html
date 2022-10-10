@@ -4,34 +4,25 @@
 {% load humanize %}
 
 {% block content %}
-
+<form class="search-form" method="GET" action="{% url 'post-search' %}">
+  <div class="search_button">
+      <input name="searched" class="search_input" type="text" placeholder="  Search" aria-label="Search">
+  </div>
 <div class="post-list">
   <div class="header">
     <h2>중고 상품</h2>
-    {% if user.is_authenticated %}
-      <form method="get" action="{% url 'post-distance' %}">
-        <div class="container">
-          <label for="customRange2" class="form-label"></label>
-          <input type="range" class="form-range" name="bar" min="0" max="5" id="customRange2" list="form_range_div">
-          <datalist id="form_range_div">
-            <option value="0"></option>
-            <option value="1"></option>
-            <option value="2"></option>
-            <option value="3"></option>
-            <option value="4"></option>
-            <option value="5"></option>
-          </datalist>
-          <button class="range_button"><i class="bi bi-geo-alt-fill"></i></button>
-        </div>
-      </form>
-    {% endif %}
+    </form> 
     <div class="write_btn">
-    <a class="link" href="{% url 'post-create' %}">
-      <span><i class="bi bi-pencil-fill">&nbsp;글쓰기</i></span>
-    </a>
+      <a class="link" href="{% url 'post-create' %}">
+        <span><i class="bi bi-pencil-fill">&nbsp;글쓰기</i></span>
+      </a>
     </div>
   </div>
-
+  <a href="javascript:withinOne();">1km 이내&nbsp;&nbsp;|</a>
+  <a href="javascript:withinFive();">5km 이내&nbsp;&nbsp;|</a>
+  <a href="javascript:withinTen();">10km 이내&nbsp;&nbsp;|</a>
+  <a href="javascript:withinAll();">전체&nbsp;&nbsp;|</a>
+  {% comment %} <a href="{% url 'index' %}">전체&nbsp;&nbsp;|</a> {% endcomment %}
   <div class="posts">
     {% for post in posts %}
     <a href="{% url 'post-detail' post.id %}">
@@ -78,4 +69,70 @@
     </ul>
   {% endif %}
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  function withinOne() {
+    $.ajax({
+        type: 'GET',
+        url: 'one',
+        data: '',
+        success: function (data) {
+          $('body').html(data);
+        },
+        error: function(request, status, error){
+          alert(error);
+        }
+    });
+  }
+
+
+  function withinFive() {
+    $.ajax({
+        type: 'GET',
+        url: 'five',
+        data: '',
+        success: function (data) {
+          $('body').html(data);
+        },
+        error: function(request, status, error){
+          alert(error);
+        }
+    });
+  }
+
+
+  function withinTen() {
+    $.ajax({
+        type: 'GET',
+        url: 'ten',
+        data: '',
+        success: function (data) {
+          $('body').html(data);
+        },
+        error: function(request, status, error){
+          alert(error);
+        }
+    });
+  }
+
+
+  function withinAll() {
+    $.ajax({
+        type: 'GET',
+        url: 'all',
+        data: '',
+        success: function (data) {
+          $('body').html(data);
+        },
+        error: function(request, status, error){
+          alert(error);
+        }
+    });
+  }
+
+
+  
+</script>
 {% endblock content %}
