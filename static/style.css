@@ -74,7 +74,7 @@ body.with-background {
 .site-header .menu .menu_nav {
   display: flex;
   list-style: none;
-  margin-top: -50px;
+  margin-top: -30px;
   margin-bottom: 50px;
   margin-right: 20px;
   padding: 0;
@@ -169,6 +169,7 @@ body.with-background {
   max-width: var(--max-content-width);
   margin: 0 auto;
   padding: 19px;
+  text-align: center;
 }
 
 .site-simple-header .logo {
@@ -208,6 +209,14 @@ body.with-background {
   margin: 0 0 34px 20px;
 }
 
+.nav_distance {
+  text-align: right;
+}
+
+.nav_distance > a{
+  color: #979797;
+}
+
 .post-list h2 {
   margin: 0;
 }
@@ -235,6 +244,7 @@ body.with-background {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 30px 20px;
+  margin-top: 100px;
 }
 
 .post-list .empty {
@@ -855,7 +865,7 @@ body.with-background {
 /* range_button */
 
 .header .container {
-  margin-left: -250px;
+  margin-left: -30px;
   float: center;
   
 }
@@ -870,13 +880,15 @@ body.with-background {
 }
 
 .form-range{
- 
-  width: 400px;
+  width: 350px;
 }
 
 .write_btn {
   margin-top: 0px;
-  margin-right: -200px;
+}
+
+.write_btn .link > span {
+  font-family: 'Spoqa Han Sans Neo', sans-serif;;
 }
 
 
@@ -993,4 +1005,79 @@ body.with-background {
 
 .slide_img3 {
   border-radius: 20px;
+}
+
+/* room css */
+
+.room .room_form {
+  width: 50%;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+#chat-log {
+  padding: 40px 0;
+  border: 5px solid #eee;
+  background-color: #f6f6ff;
+  border-radius: 10px;
+  overflow: auto;
+  height: 50%;
+  border-color: transparent;
+  box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+#chat-nav {
+  border-bottom: 3px solid rgb(255, 255, 255);
+  font-size: 20px;
+  color: #717171;
+  margin-top: -40px;
+  text-align: center;
+}
+
+#chat-message-input {
+  height: 40px;
+  width: 93%;
+  border: 5px solid #DDDDFF;
+  border-radius: 10px;
+}
+
+#chat-message-submit {
+  height: 40px;
+  width: 45px;
+  background-color: #476bed;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+}
+
+.chat_msg {
+  color: white;
+  font-size: 15px;
+  background-color: #476bed;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: calc(100% - 70px);
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.room .room_form .icon {
+  position: relative;
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #eee;
+}
+
+.room .room_form .icon i {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  font-size: 2.5rem;
+  color: #aaa;
+  transform: translateX(-50%);
 }

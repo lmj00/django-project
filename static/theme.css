@@ -221,8 +221,7 @@ textarea.podo-input {
   padding: 5px 18px 4px;
   font-size: 17px;
   line-height: 25px;
-  border: 1px solid var(--chip-border);
-  border-radius: 9999px;
+
 }
 
 .podo-chip.primary {

@@ -14,15 +14,17 @@
     </form> 
     <div class="write_btn">
       <a class="link" href="{% url 'post-create' %}">
-        <span><i class="bi bi-pencil-fill">&nbsp;글쓰기</i></span>
+        <span><i class="bi bi-pencil-fill">&nbsp;</i>글쓰기</span>
       </a>
     </div>
   </div>
-  <a href="javascript:withinOne();">1km 이내&nbsp;&nbsp;|</a>
-  <a href="javascript:withinFive();">5km 이내&nbsp;&nbsp;|</a>
-  <a href="javascript:withinTen();">10km 이내&nbsp;&nbsp;|</a>
-  <a href="javascript:withinAll();">전체&nbsp;&nbsp;|</a>
-  {% comment %} <a href="{% url 'index' %}">전체&nbsp;&nbsp;|</a> {% endcomment %}
+  <div class="nav_distance">
+    <a href="javascript:withinOne();">1km 이내&nbsp;&nbsp;|</a>
+    <a href="javascript:withinFive();">5km 이내&nbsp;&nbsp;|</a>
+    <a href="javascript:withinTen();">10km 이내&nbsp;&nbsp;|</a>
+    <a href="javascript:withinAll();">전체&nbsp;&nbsp;|</a>
+    {% comment %} <a href="{% url 'index' %}">전체&nbsp;&nbsp;|</a> {% endcomment %}
+  </div>
   <div class="posts">
     {% for post in posts %}
     <a href="{% url 'post-detail' post.id %}">
