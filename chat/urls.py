@@ -8,11 +8,4 @@ urlpatterns = [
         views.room, 
         name='room'
     ),
-    
-    path(
-        '<int:user_id>/', 
-        views.RoomList.as_view(), 
-        name='room_list'
-    ),
-
 ]

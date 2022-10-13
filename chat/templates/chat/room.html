@@ -6,6 +6,11 @@
     <title>Chat Room</title>
 </head>
 <body>
+    {% for room in room_list %}
+        <a href="{% url 'room' room.post_id room.buyer_id %}">{{ room.id }}</a> 
+        {{ room.last_content }}<br>
+    {% endfor %}
+    
     <textarea id="chat-log" cols="100" rows="20">
     {% for message in message_list %}
         {{ message.content }}
