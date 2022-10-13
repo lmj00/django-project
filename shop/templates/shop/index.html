@@ -18,13 +18,14 @@
       </a>
     </div>
   </div>
-  <div class="nav_distance">
-    <a href="javascript:withinOne();">1km 이내&nbsp;&nbsp;|</a>
-    <a href="javascript:withinFive();">5km 이내&nbsp;&nbsp;|</a>
-    <a href="javascript:withinTen();">10km 이내&nbsp;&nbsp;|</a>
-    <a href="javascript:withinAll();">전체&nbsp;&nbsp;|</a>
-    {% comment %} <a href="{% url 'index' %}">전체&nbsp;&nbsp;|</a> {% endcomment %}
-  </div>
+  {% if user.is_authenticated %}
+    <div class="nav_distance">
+      <a href="javascript:withinOne();">1km 이내&nbsp;&nbsp;|</a>
+      <a href="javascript:withinFive();">5km 이내&nbsp;&nbsp;|</a>
+      <a href="javascript:withinTen();">10km 이내&nbsp;&nbsp;|</a>
+      <a href="javascript:withinAll();">전체&nbsp;&nbsp;</a>
+    </div>
+  {% endif %}
   <div class="posts">
     {% for post in posts %}
     <a href="{% url 'post-detail' post.id %}">
