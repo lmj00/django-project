@@ -4,26 +4,20 @@
 {% load humanize %}
 
 {% block content %}
+<form class="search-form" method="GET" action="{% url 'post-search' %}">
+  <div class="search_button">
+    <input name="searched" class="search_input" type="text" placeholder="  Search" aria-label="Search">
+  </div>
 
 <div class="post-list">
   <div class="header">
     <h2>중고 상품</h2>
-    {% if user.is_authenticated %}
-      <form method="get" action="{% url 'post-distance' %}">
-        <div class="container">
-          <label for="customRange2" class="form-label">거리 조절</label>
-          <input type="range" class="form-range" name="bar" min="0" max="5" id="customRange2">
-          <button>검색</button>
-        </div>
-      </form>
-    {% endif %}
     <div class="write_btn">
       <a class="link" href="{% url 'post-create' %}">
         <span><i class="bi bi-pencil-fill">&nbsp;글쓰기</i></span>
       </a>
       </div>
   </div>
-
   <div class="posts">
     {% for post in post_list %}
     <a href="{% url 'post-detail' post.id %}">
