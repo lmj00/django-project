@@ -16,7 +16,8 @@ class Message(models.Model):
     roomname = models.ForeignKey(Room, on_delete=models.PROTECT)
     content = models.TextField()       
     post_id = models.IntegerField()
-    user_id = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=15)
     timestmap = models.DateTimeField(auto_now=True)
 
     # post = models.ForeignKey(Post, on_delete=models.PROTECT)
