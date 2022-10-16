@@ -12,12 +12,13 @@
 <div class="post-list">
   <div class="header">
     <h2>중고 상품</h2>
-    </form> 
-    <div class="write_btn">
-      <a class="link" href="{% url 'post-create' %}">
-        <span><i class="bi bi-pencil-fill">&nbsp;</i>글쓰기</span>
-      </a>
-    </div>
+    {% if user.is_authenticated %}
+      <div class="write_btn">
+        <a class="link" href="{% url 'post-create' %}">
+          <span><i class="bi bi-pencil-fill">&nbsp;</i>글쓰기</span>
+        </a>
+      </div>
+    {% endif %}
   </div>
   {% if user.is_authenticated %}
     <div class="nav_distance">
