@@ -70,13 +70,12 @@
           <div class="is-sold">거래완료</div>
         {% endif %}
       </div>
+      
       {% if user.is_authenticated %}
-        {% if user.id != post.author.id %}
           <a href="{% url 'room' post.id user.id %}">채팅하기</a>
-        {% endif %}
-        <a href="{% url 'room_list' user.id %}">채팅 목록</a>
+          <a href="{% url 'room_list' %}">채팅목록</a>
       {% endif %}
-
+      
       <a class="profile-link" href="{% url 'profile' post.author.id %}">
         <div class="podo-box gray-background profile">
           <div class="profile-pic" style="background-image: url('{{ post.author.profile_pic.url }}')"></div>
