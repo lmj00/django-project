@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path(
-        '<int:post_id>/<int:user_id>/', 
+        '<int:post_id>/<int:buyer_id>/', 
         views.room, 
         name='room'
     ),

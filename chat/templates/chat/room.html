@@ -52,7 +52,7 @@
             chatSocket.send(JSON.stringify({
                 'message': message,
                 'post_id': {{ post_id }},
-                'room': {{ room }}
+                'buyer_id': {{ buyer_id }}
             }));
             messageInputDom.value = '';
         };
