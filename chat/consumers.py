@@ -3,6 +3,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from chat.models import Room, Message
 from shop.models import Post
+from django.db.models import Q
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -45,9 +46,27 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json['message']   
         self.user = self.scope["user"]
         post_id = text_data_json['post_id']
+        buyer_id = text_data_json['buyer_id']
 
+        post = Post.objects.get(id=post_id)
+
+        check_room = Room.objects.filter(
+            Q(seller_id=post.author.id) & Q(buyer_id=buyer_id)
+        )
+
+        if len(check_room) == 0:
+            Room.objects.create(
+                post_id = post_id, 
+                seller_id = post.author.id, 
+                buyer_id = self.user.id,
+                last_content = ""
+        )
+
+        room = Room.objects.get(
+            Q(seller_id=post.author.id) & Q(buyer_id=buyer_id)
+        )
+        
         author_nickname = Post.objects.get(id=post_id).author.nickname
-        room = Room.objects.get(id=text_data_json['room'])
 
         # Send message to room group
         await self.channel_layer.group_send(

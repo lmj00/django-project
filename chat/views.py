@@ -5,37 +5,26 @@ from django.db.models import Q
 from django.views.generic import ListView
 
 # Create your views here.
-def room(request, post_id, user_id): 
+def room(request, post_id, buyer_id): 
     post = Post.objects.get(id=post_id)
-    room = Room.objects.filter(buyer_id=user_id, seller_id=post.author.id)   
+    check_room = Room.objects.filter(
+        Q(seller_id=post.author.id) & Q(buyer_id=buyer_id)
+    )
     
-    # 채팅방 개설
-    if len(room) == 0 and user_id != post.author.id:
-        Room.objects.create(
-            post_id = post_id, 
-            seller_id = post.author.id, 
-            buyer_id = user_id,
-            last_content = ""
+    if len(check_room) > 0:
+        room = Room.objects.get(
+            Q(seller_id=post.author.id) & Q(buyer_id=buyer_id)
         )
+        message = Message.objects.filter(roomname_id=room.id)
+    else:
+        message = ""
 
-    room = Room.objects.get(
-        Q(seller_id=post.author.id) & Q(buyer_id=user_id)
-    )   
-
-    message = Message.objects.filter(roomname_id=room.id)
-
-    room_list = Room.objects.filter(
-            Q(seller_id=user_id) | Q(buyer_id=user_id)
-        )   
-    
 
     return render(request, 'chat/room.html', {
         'post_id': post_id, 
-        'room': room.id, 
-        'room_list': room_list,
-        'message_list': message 
+        'buyer_id': buyer_id,
+        'message_list': message
     })
-
 
 class RoomList(ListView):
     model = Room
