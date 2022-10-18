@@ -4,22 +4,14 @@ from shop.models import Post
 
 # Create your models here.
 class Room(models.Model):
-    # post_id = models.ForeignKey(Post, on_delete=models.PROTECT)
-    # user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    post_id = models.IntegerField()
-    seller_id = models.IntegerField()
-    buyer_id = models.IntegerField()
+    post = models.ForeignKey(Post, on_delete=models.PROTECT)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='seller')
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='buyer')
     last_content = models.TextField(blank=True)
 
 
 class Message(models.Model):
-    roomname = models.ForeignKey(Room, on_delete=models.PROTECT)
+    room = models.ForeignKey(Room, on_delete=models.PROTECT)
     content = models.TextField()       
-    post_id = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    nickname = models.CharField(max_length=15)
     timestmap = models.DateTimeField(auto_now=True)
-
-    # post = models.ForeignKey(Post, on_delete=models.PROTECT)
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
-
