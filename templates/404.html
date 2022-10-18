@@ -1,1 +1,49 @@
-페이지가 없거나 잘못된 접근입니다.
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block body_class %}with-border{% endblock %}
+
+{% block header %}
+<header class="site-header">
+  <a class="logo" href="{% url 'index' %}">
+    <img src="{% static 'assets/salt_logo.svg' %}" alt="소금마켓">
+  </a>
+  <nav>
+    <ul class="menu">
+      
+      
+      <div class="menu_nav">
+      {% if user.is_authenticated %}
+        <li class="menu-item user-menu"><a href="{% url 'profile' user.id %}">내 프로필</a></li>
+        <li class="menu-item user-menu"><a href="{% url 'account_login' %}">채팅하기</a></li>
+        <li class="menu-item user-menu"><a href="{% url 'account_logout' %}">로그아웃</a></li>
+        
+      {% else %}
+        <li class="menu-item guest-menu"><a class="podo-chip" href="{% url 'account_login' %}">로그인</a></li>
+        <li class="menu-item guest-menu"><a class="podo-chip" href="{% url 'account_signup' %}">회원가입</a></li>
+        <li class="menu-item guest-menu"><a class="podo-chip" href="{% url 'account_login' %}">채팅하기</a></li>
+      {% endif %}
+    </div>
+  
+    </ul>
+  </nav>
+</header>
+
+{% endblock header %}
+
+<body>
+    <div class="error404">
+        <img src=" {% static 'assets/error404.png' %}" alt="error404"><br>
+        <p>페이지가 없거나 잘못된 접근입니다.</p>
+    </div>
+</body>
+
+
+{% block footer %}
+<footer class="site-footer">
+  <div class="content">
+    <span>소금마켓</span>
+  </div>
+</footer>
+{% endblock footer %}
