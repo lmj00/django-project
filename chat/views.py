@@ -3,10 +3,16 @@ from shop.models import Post
 from chat.models import Message, Room
 from django.db.models import Q
 from django.views.generic import ListView
+from django.http import Http404
 
 # Create your views here.
 def room(request, post_id, buyer_id): 
     post = Post.objects.get(id=post_id)
+
+    if request.user.id != buyer_id and request.user.id != post.author.id:
+        raise Http404
+
+    
     check_room = Room.objects.filter(
         Q(seller_id=post.author.id) & Q(buyer_id=buyer_id)
     )
