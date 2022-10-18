@@ -10,21 +10,21 @@ def room(request, post_id, buyer_id):
     check_room = Room.objects.filter(
         Q(seller_id=post.author.id) & Q(buyer_id=buyer_id)
     )
-    
+
     if len(check_room) > 0:
         room = Room.objects.get(
             Q(seller_id=post.author.id) & Q(buyer_id=buyer_id)
         )
-        message = Message.objects.filter(roomname_id=room.id)
+        message = Message.objects.filter(room=room.id)
     else:
         message = ""
-
 
     return render(request, 'chat/room.html', {
         'post_id': post_id, 
         'buyer_id': buyer_id,
         'message_list': message
     })
+
 
 class RoomList(ListView):
     model = Room
@@ -35,5 +35,5 @@ class RoomList(ListView):
         room = Room.objects.filter(
             Q(seller_id=user_id) | Q(buyer_id=user_id)
         )   
-
+            
         return room
