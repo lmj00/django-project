@@ -2,6 +2,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from chat.models import Room, Message
+from member.models import User
 from shop.models import Post
 from django.db.models import Q
 
@@ -9,13 +10,11 @@ from django.db.models import Q
 class ChatConsumer(AsyncWebsocketConsumer):
     
     @database_sync_to_async
-    def save_message(self, room, user, post_id, message, nickname):
+    def save_message(self, room, user, message):
         Message.objects.create(
-            roomname = room,
+            room = room,
             content = message,
-            post_id = post_id,
-            user_id = user.id,
-            nickname = nickname
+            user = user
         )
 
         Room.objects.filter(id=room.id).update(last_content=message)
@@ -44,11 +43,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']   
-        self.user = self.scope["user"]
         post_id = text_data_json['post_id']
         buyer_id = text_data_json['buyer_id']
+        self.user = self.scope['user']
 
         post = Post.objects.get(id=post_id)
+        buyer = User.objects.get(id=buyer_id)
+        seller = User.objects.get(id=post.author.id)
 
         check_room = Room.objects.filter(
             Q(seller_id=post.author.id) & Q(buyer_id=buyer_id)
@@ -56,9 +57,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         if len(check_room) == 0:
             Room.objects.create(
-                post_id = post_id, 
-                seller_id = post.author.id, 
-                buyer_id = self.user.id,
+                post = post, 
+                seller = seller,
+                buyer = buyer,
                 last_content = ""
         )
 
@@ -79,7 +80,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
         )    
 
-        await self.save_message(room, self.user, post_id, message, self.user.nickname)
+        await self.save_message(room, self.user, message)
+
 
     # Receive message from room group
     async def chat_message(self, event):
