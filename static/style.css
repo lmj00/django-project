@@ -75,7 +75,7 @@ body.with-background {
   display: flex;
   list-style: none;
   margin-top: -30px;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
   margin-right: 20px;
   padding: 0;
   justify-content: center;
@@ -94,7 +94,8 @@ body.with-background {
   border-style: solid;
   border-radius: 20px;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: -30px;
+  margin-left: 15px;
   border-color: #d9d9d9;
 }
   
@@ -244,7 +245,7 @@ body.with-background {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 30px 20px;
-  margin-top: 100px;
+  margin-top: 20px;
 }
 
 .post-list .empty {
@@ -474,8 +475,8 @@ body.with-background {
 }
 
 .post-detail .title {
-  font-size: 22px;
-  font-weight: normal;
+  font-size: 23px;
+  font-weight: bold;
   margin: 0 0 15px;
   overflow: hidden;
   white-space: nowrap;
@@ -488,10 +489,14 @@ body.with-background {
 }
 
 .post-detail .item-info .item-price {
-  font-size: 25px;
+  font-size: 18px;
   font-weight: bold;
   margin-right: 15px;
   letter-spacing: -0.44px;
+}
+
+.post-detail .content{
+  font-weight: normal;
 }
 
 .post-detail .item-info .item-price.sold {
@@ -1009,22 +1014,69 @@ body.with-background {
 
 /* room css */
 
+.room{
+  width: 1500px;
+  margin: 0 auto;
+}
+
 .room .room_form {
-  width: 50%;
-  margin: auto;
   margin-top: 100px;
   margin-bottom: 100px;
+  
+}
+
+.room_list{
+  margin-left: -300px;
+  width: 300px;
+  padding: 40px 0;
+  border: 5px solid #eee;
+  /* background-color: #f6f6ff; */
+  background-color: #dbedff;
+  border-radius: 5px;
+  overflow: auto;
+  height: 540px;
+  border-color: transparent;
+  box-shadow: 1px 1px 1px 1px #cccccc;
+}
+
+.room_list > p {
+  text-align: center;
+  margin-top: -30px;
+  font-size: 25px;
+}
+
+.room_list_content{
+  
+  border-top: 1px solid rgb(207, 207, 207);
+  border-bottom: 1px solid rgb(207, 207, 207);
+}
+
+.content_border{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.content_border > a{
+  margin-left: 30px;
+}
+
+.chat_content{
+  margin-left: 35%;
+  margin-top: 20px;
 }
 
 #chat-log {
+  width: 800px;
+  margin-left: 10px;
+  margin-top: -540px;
   padding: 40px 0;
   border: 5px solid #eee;
-  background-color: #f6f6ff;
-  border-radius: 10px;
+  /* background-color: #f6f6ff; */
+  background-color: #acd3ff;
+  border-radius: 5px;
   overflow: auto;
-  height: 50%;
+  height: 500px;
   border-color: transparent;
-  box-shadow: inset 0px 0px 0px 1px transparent;
+  box-shadow: 1px 1px 1px 1px #adadad;
 }
 
 #chat-nav {
@@ -1035,26 +1087,40 @@ body.with-background {
   text-align: center;
 }
 
+.chat_input{
+  width: 810px;
+  margin-left: 10px;
+  margin-top: -22px;
+}
+
 #chat-message-input {
   height: 40px;
-  width: 93%;
-  border: 5px solid #DDDDFF;
-  border-radius: 10px;
+  width: 800px;
+  background-color: #acd3ff;
+  border: 2px solid #adadad;
+  border-radius: 5px;
+  margin-top: 0px;
 }
 
 #chat-message-submit {
-  height: 40px;
-  width: 45px;
-  background-color: #476bed;
+  height: 50px;
+  width: 50px;
   color: #ffffff;
   border: none;
   border-radius: 10px;
 }
 
+.chat_input_cont{
+  text-align: right;
+  margin-top: -37px;
+  margin-right: 20px;
+  font-size: 25px;
+}
+
 .chat_msg {
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 15px;
-  background-color: #476bed;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 10px;
   max-width: calc(100% - 70px);
@@ -1080,4 +1146,19 @@ body.with-background {
   font-size: 2.5rem;
   color: #aaa;
   transform: translateX(-50%);
+}
+
+
+/* error page */
+
+.error403{
+  text-align: center;
+}
+
+.error404{
+  text-align: center;
+}
+
+.error500{
+  text-align: center;
 }
