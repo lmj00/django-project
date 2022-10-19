@@ -8,11 +8,15 @@ from django.http import Http404
 # Create your views here.
 def room(request, post_id, buyer_id): 
     post = Post.objects.get(id=post_id)
+    user_id = request.user.id
 
     if request.user.id != buyer_id and request.user.id != post.author.id:
         raise Http404
 
-    
+    room_list = Room.objects.filter(
+        Q(seller_id=user_id) | Q(buyer_id=user_id)
+    )   
+
     check_room = Room.objects.filter(
         Q(seller_id=post.author.id) & Q(buyer_id=buyer_id)
     )
@@ -28,7 +32,8 @@ def room(request, post_id, buyer_id):
     return render(request, 'chat/room.html', {
         'post_id': post_id, 
         'buyer_id': buyer_id,
-        'message_list': message
+        'message_list': message,
+        'room_list': room_list
     })
 
 

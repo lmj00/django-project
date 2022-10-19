@@ -7,7 +7,13 @@
 </head>
 <body>
     {% for room in room_list %}
-        <a href="{% url 'room' room.post_id room.buyer_id %}">{{ room.id }}</a> 
+        <a href="{% url 'room' room.post_id room.buyer_id %}">
+            {% if user.id == room.post.author.id %}
+                {{ room.buyer.nickname }}
+            {% else %}
+                {{ room.seller.nickname }}        
+            {% endif %}
+        </a> 
         {{ room.last_content }}<br>
     {% endfor %}
     
