@@ -1072,7 +1072,7 @@ body.with-background {
   padding: 40px 0;
   border: 5px solid #eee;
   /* background-color: #f6f6ff; */
-  background-color: #acd3ff;
+  background-color: #dbedff;
   border-radius: 5px;
   overflow: auto;
   height: 500px;
@@ -1097,7 +1097,7 @@ body.with-background {
 #chat-message-input {
   height: 40px;
   width: 800px;
-  background-color: #acd3ff;
+  background-color: #dbedff; /*#acd3ff */
   border: 2px solid #adadad;
   border-radius: 5px;
   margin-top: 0px;

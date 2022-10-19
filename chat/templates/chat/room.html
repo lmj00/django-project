@@ -1,3 +1,10 @@
+{% extends "base_with_navbar.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
 <!-- chat/templates/chat/room.html -->
 <!DOCTYPE html>
 <html>
@@ -6,25 +13,53 @@
     <title>Chat Room</title>
 </head>
 <body>
-    {% for room in room_list %}
-        <a href="{% url 'room' room.post_id room.buyer_id %}">
-            {% if user.id == room.post.author.id %}
-                {{ room.buyer.nickname }}
-            {% else %}
-                {{ room.seller.nickname }}        
-            {% endif %}
-        </a> 
-        {{ room.last_content }}<br>
-    {% endfor %}
+    <div class="container">
     
-    <textarea id="chat-log" cols="100" rows="20">
-    {% for message in message_list %}
-        {{ message.user.nickname }}: {{ message.content }}   
-    {% endfor %}
-    </textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
-    {{ post_id|json_script:"room-name" }}
+        <div class="room">
+            <div class="room_form">
+                <div id="chat-nav"><p>Chat</p></div>
+
+                <div class="chat_content">
+                    <div class="room_list"><p>list</p>
+
+
+                    {% for room in room_list %}
+                        <div class="room_list_content">
+                        <div class="content_border"> 
+                        <a href="{% url 'room' room.post_id room.buyer_id %}">
+                            {% if user.id == room.post.author.id %}
+                                {{ room.buyer.nickname }}
+                            {% else %}
+                                {{ room.seller.nickname }}        
+                            {% endif %}
+                        </a> 
+                        &nbsp;&nbsp;&nbsp;{{ room.last_content }}<br>
+                        </div>
+                        </div> 
+                    {% endfor %}
+                </div>
+                    
+                    <div id="chat-log" cols="100" rows="20">
+                    {% for message in message_list %}
+                    <div class="chat_msg">
+                        {{ message.user.nickname }}: {{ message.content }}   
+                    </div><br/><br/> 
+                    {% endfor %}
+                    </div><br>
+                    <div class="chat_input">
+                        <input id="chat-message-input" type="text" size="100">
+                        <!-- <input id="chat-message-submit" type="button" value="Send"> -->
+                    <div class="chat_input_cont">    
+                        <a href="#" id="chat-message-submit" role="button" ><i class="bi bi-send-fill"></i></a> 
+                    </div>
+                </div>
+                    {{ post_id|json_script:"room-name" }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
@@ -65,3 +100,5 @@
     </script>
 </body>
 </html>
+
+{% endblock content %}
