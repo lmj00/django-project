@@ -14,4 +14,4 @@ class Message(models.Model):
     room = models.ForeignKey(Room, on_delete=models.PROTECT)
     content = models.TextField()       
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    timestmap = models.DateTimeField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now=True)
