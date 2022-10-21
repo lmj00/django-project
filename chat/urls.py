@@ -14,4 +14,11 @@ urlpatterns = [
         views.RoomList.as_view(), 
         name='room_list'
     ),
+
+    path(
+        'polling/', 
+        views.polling, 
+        name='polling'
+    ),
+
 ]

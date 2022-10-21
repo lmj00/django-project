@@ -4,6 +4,8 @@ from chat.models import Message, Room
 from django.db.models import Q
 from django.views.generic import ListView
 from django.http import Http404
+from django.http import JsonResponse
+
 
 # Create your views here.
 def room(request, post_id, buyer_id): 
@@ -48,3 +50,25 @@ class RoomList(ListView):
         )   
             
         return room
+
+
+def polling(request):
+    user_id = request.user.id
+
+    check_room = Room.objects.filter( 
+        Q(seller_id=user_id) | Q(buyer_id=user_id)
+    )
+
+    last_ms_list = request.GET.getlist('last_message[]')
+    different_ms = []
+    
+    if len(check_room) > 0:
+        for i in range(len(check_room)):
+            message = Message.objects.filter(room_id=check_room[i].id) 
+            
+            if message.last().content != last_ms_list[i]:    
+                different_ms.append(message.last().content)
+            else:
+                different_ms.append('')
+
+        return JsonResponse(different_ms, safe=False)
