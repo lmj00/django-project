@@ -6,6 +6,35 @@
             {{ room.seller.nickname }}        
         {% endif %}
     </a> 
-    {{ room.last_content }}<br>
+    <div class="message">{{ room.last_content }}</div><br>
 {% endfor %}
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var polling = setInterval(function (){
+        var message = document.getElementsByClassName('message')
+        var last_message = []
+
+        for (var i = 0; i < message.length; i++) {
+            last_message.push(message[i].textContent);
+        }
+        
+        $.ajax({
+            type: 'GET',
+            url: 'polling/',
+            data: {'last_message': last_message}, 
+            success: function (data) { 
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i] != '') {
+                        $('.message').eq(i).text(data[i]);
+                    }
+                    
+                }
+
+            },
+            error: function(request, status, error){
+                alert(error);
+            }
+        });
+    }, 400);
+</script>
