@@ -15,11 +15,12 @@
             {% endif %}
         </a> 
         <div class="message">{{ room.last_content }}</div><br>
-    {% endfor %}
+        {% endfor %}
     
     <textarea id="chat-log" cols="100" rows="20">
     {% for message in message_list %}
         {{ message.user.nickname }}: {{ message.content }}   
+        {{ message.timestamp|date:'a g:i' }} 
     {% endfor %}
     </textarea><br>
     <input id="chat-message-input" type="text" size="100"><br>
