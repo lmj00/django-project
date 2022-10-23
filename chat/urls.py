@@ -10,7 +10,7 @@ urlpatterns = [
     ),
 
     path(
-        'room_list/', 
+        '', 
         views.RoomList.as_view(), 
         name='room_list'
     ),
