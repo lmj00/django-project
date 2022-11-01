@@ -76,7 +76,7 @@ body.with-background {
   list-style: none;
   margin-top: -30px;
   margin-bottom: 0px;
-  margin-right: 20px;
+  margin-right: 40px;
   padding: 0;
   justify-content: center;
 
@@ -1163,3 +1163,64 @@ body.with-background {
 .error500{
   text-align: center;
 }
+
+
+
+/* post detail button*/
+
+.post_detail_buttons{
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+
+.post_detail_btnl {
+    display: block;
+    background-color: #ffffff; 
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border: 2px solid #476bed;
+    border-radius: 20px;
+}
+
+.post_detail_btnl:hover {
+  background-color: #476bed;
+  color: white;
+  text-decoration: none;
+}
+
+.post_detail_btnr {
+    display: block;
+    background-color: #ffffff;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border: 2px solid #476bed;
+    border-radius: 20px;
+}
+
+.post_detail_btnr:hover {
+  background-color: #476bed;
+  color: white;
+  text-decoration: none;
+
+}
+
+
