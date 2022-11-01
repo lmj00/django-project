@@ -6,17 +6,9 @@
     <title>Chat Room</title>
 </head>
 <body>
-    {% for room in room_list %}
-        <a href="{% url 'room' room.post_id room.buyer_id %}">
-            {% if user.id == room.post.author.id %}
-                {{ room.buyer.nickname }}
-            {% else %}
-                {{ room.seller.nickname }}        
-            {% endif %}
-        </a> 
-        <div class="message">{{ room.last_content }}</div><br>
-        {% endfor %}
-    
+    <div id="content">
+    </div>
+
     <textarea id="chat-log" cols="100" rows="20">
     {% for message in message_list %}
         {{ message.user.nickname }}: {{ message.content }}   
@@ -26,6 +18,7 @@
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ post_id|json_script:"room-name" }}
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
@@ -65,32 +58,54 @@
             messageInputDom.value = '';
         };
 
-        var polling = setInterval(function (){
-            var message = document.getElementsByClassName('message')
+        var contentTag = document.getElementById('content')
+        var polling = setInterval(function(){
+            
+            var message = document.getElementsByClassName('last_message')
             var last_message = []
-
+            
             for (var i = 0; i < message.length; i++) {
                 last_message.push(message[i].textContent);
             }
-            
-            $.ajax({
+
+            $.ajax({    
                 type: 'GET',
-                url: '/chat/polling',
+                url: '/chat/polling',   
                 data: {'last_message': last_message}, 
                 success: function (data) { 
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i] != '') {
-                            $('.message').eq(i).text(data[i]);
+                    data.forEach(function(room, idx){
+                        if (last_message.length !== data.length) {
+                            if ($('.nickname').eq(idx).text() === '') {
+                                var nickname = document.createElement('a');
+                                nickname.setAttribute('class', 'nickname');
+                                
+                                if ('{{ user.nickname }}' == room['seller_nickname']) {
+                                    nickname.innerHTML = room['buyer_nickname'];
+                                } else {
+                                    nickname.innerHTML = room['seller_nickname'];
+                                }
+                    
+                                var lastMsTag = document.createElement('div');
+                                lastMsTag.setAttribute('class', 'last_message');
+                                lastMsTag.innerHTML = room['last_content'];
+                    
+                                contentTag.appendChild(nickname);
+                                contentTag.appendChild(lastMsTag); 
+                            }
+                        } else {
+                            if (room['last_content'] != last_message[idx]) {
+                                $('.last_message').eq(idx).text(room['last_content']);     
+                            }   
                         }
-                        
-                    }
-
+                    });
                 },
+
                 error: function(request, status, error){
                     alert(error);
                 }
             });
-        }, 400);
-    </script>
+            
+        }, 400); 
+    </script> 
 </body>
 </html>
