@@ -1,3 +1,4 @@
+from tabnanny import check
 from django.shortcuts import render
 from shop.models import Post
 from chat.models import Message, Room
@@ -54,21 +55,20 @@ class RoomList(ListView):
 
 def polling(request):
     user_id = request.user.id
-
+    
     check_room = Room.objects.filter( 
         Q(seller_id=user_id) | Q(buyer_id=user_id)
     )
 
-    last_ms_list = request.GET.getlist('last_message[]')
-    different_ms = []
-    
-    if len(check_room) > 0:
-        for i in range(len(check_room)):
-            message = Message.objects.filter(room_id=check_room[i].id) 
-            
-            if message.last().content != last_ms_list[i]:    
-                different_ms.append(message.last().content)
-            else:
-                different_ms.append('')
+    room_list = []
 
-        return JsonResponse(different_ms, safe=False)
+    for room in check_room:
+        room_list.append(
+            {
+                'last_content': room.last_content,
+                'buyer_nickname': room.buyer.nickname,
+                'seller_nickname': room.seller.nickname
+            }
+        )
+
+    return JsonResponse(room_list, safe=False)
