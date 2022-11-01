@@ -1,13 +1,83 @@
-{% for room in room_list %}
-    <a href="{% url 'room' room.post_id room.buyer_id %}">
-        {% if user.id == room.post.author.id %}
-            {{ room.buyer.nickname }}
-        {% else %}
-            {{ room.seller.nickname }}        
-        {% endif %}
-    </a> 
-    <div class="message">{{ room.last_content }}</div><br>
-{% endfor %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'room_style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="leftSide">
+            <!-- Header -->
+            <div class="header">
+                <ul class="nav_icons">
+                    <li><ion-icon name="scan-circle-outline"></ion-icon></li>
+                    <li><ion-icon name="chatbox"></ion-icon></li>
+                    <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
+                </ul>
+            </div>
+            
+            <!-- CHAT LIST -->
+            <div class="chatlist">
+                {% for room in room_list %}
+                <div class="block unread">
+                    <div class="imgBox">
+                        <img src="{% static 'assets/user.png' %}" class="cover" alt="">
+                    </div>
+                    <div class="details">
+                        <div class="listHead">
+                            <a href="{% url 'room' room.post_id room.buyer_id %}">
+                                {% if user.id == room.post.author.id %}
+                                    {{ room.buyer.nickname }}
+                                {% else %}
+                                    {{ room.seller.nickname }}        
+                                {% endif %}
+                            </a> 
+                        </div>
+                        <div class="message">
+                            <p><div id="content">
+                            </div></p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="rightSide">
+            <div class="header">
+                <div class="imgText">
+                    <div class="userimg">
+                        <img src="{% static 'assets/user2.jpg' %}" alt="" class="cover">
+                    </div>
+                    {% for room in room_list %}
+                    <h4>{{ room.buyer.nickname }} <br><span>online</span></h4>
+                    {% endfor %}
+                </div>
+                <ul class="nav_icons">
+                    <li><ion-icon name="search-outline"></ion-icon></li>
+                    <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
+                </ul>
+            </div>
+
+            <!-- CHAT-BOX -->
+            
+
+            <div class="chat-log">
+                <div class="chat_list_intro">   
+                    <img src="{% static 'assets/page_none.png' %}" class="chat_list_img" alt="">    
+                </div>
+                <div class="chat_list_intro_content">
+                    <h4>대화 내역이 없습니다.</h4><br>
+                    <p>판매자와 직접 대화하는 '소금마켓 Chat'</p>
+                    <p>지금 바로 대화를 시작해보세요!</p>
+                </div>
+            </div><br>      
+        </div>
+    </div>
+    {{ post_id|json_script:"room-name" }}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
