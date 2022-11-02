@@ -66,7 +66,9 @@ def polling(request):
         room_list.append(
             {
                 'last_content': room.last_content,
+                'polling_post_id': room.post_id,
                 'buyer_nickname': room.buyer.nickname,
+                'polling_buyer_id': room.buyer_id,
                 'seller_nickname': room.seller.nickname
             }
         )
