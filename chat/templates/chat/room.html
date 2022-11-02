@@ -1,129 +1,34 @@
-{% load static %}
-
-
+<!-- chat/templates/chat/room.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8"/>
     <title>Chat Room</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'room_style.css' %}">
 </head>
 <body>
-    <div class="container">
-        <div class="leftSide">
-            <!-- Header -->
-            <div class="header">
-                <div class="userimg">
-                    <img src="{% static 'assets/user.png' %}" alt="소금마켓" class="cover">
-                </div>
-                <ul class="nav_icons">
-                    <li><ion-icon name="scan-circle-outline"></ion-icon></li>
-                    <li><ion-icon name="chatbox"></ion-icon></li>
-                    <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
-                </ul>
-            </div>
-            
-            <!-- CHAT LIST -->
-            <div class="chatlist">
-                {% for room in room_list %}
-                <div class="block unread">
-                    <div class="imgBox">
-                        <img src="{% static 'assets/user.png' %}" class="cover" alt="">
-                    </div>
-                    <div class="details">
-                        <div class="listHead">
-                            <a href="{% url 'room' room.post_id room.buyer_id %}">
-                                {% if user.id == room.post.author.id %}
-                                    {{ room.buyer.nickname }}
-                                {% else %}
-                                    {{ room.seller.nickname }}        
-                                {% endif %}
-                            </a> 
-                            <p class="time"></p>
-                        </div>
-                        <div class="message">
-                            <p><div id="content">
-                            </div></p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                <div class="block unread">
-                    <div class="imgBox">
-                        <img src="{% static 'assets/user.png' %}" class="cover" alt="">
-                    </div>
-                    <div class="details">
-                        <div class="listHead">
-                            <h4>Olivia</h4>
-                            <p class="time">Yesterday</p>
-                        </div>
-                        <div class="message_p">
-                            <p>I just subscribed to your channel</p>
-                            <b>2</b>
-                        </div>
-                    </div>
-                </div>
-                <div class="block">
-                    <div class="imgBox">
-                        <img src="{% static 'assets/user.png' %}" class="cover" alt="">
-                    </div>
-                    <div class="details">
-                        <div class="listHead">
-                            <h4>Parker</h4>
-                            <p class="time">Yesterday</p>
-                        </div>
-                        <div class="message_p">
-                            <p>Hey!</p>                            
-                        </div>
-                    </div>
-                </div>               
-            </div>
-        </div>
-        <div class="rightSide">
-            <div class="header">
-                <div class="imgText">
-                    <div class="userimg">
-                        <img src="{% static 'assets/user2.jpg' %}" alt="" class="cover">
-                    </div>
-                    {% for room in room_list %}
-                    <h4>{{ room.buyer.nickname }} <br><span>online</span></h4>
-                    {% endfor %}
-                </div>
-                <ul class="nav_icons">
-                    <li><ion-icon name="search-outline"></ion-icon></li>
-                    <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
-                </ul>
-            </div>
-
-            <!-- CHAT-BOX -->
-            
-
-            <div class="chat-log">
-                {% for message in message_list %}
-                    <div class="chat_user">
-                        <img src="{% static 'assets/user2.jpg' %}" alt="" class="chat_user_img">
-                        <div class="chat_user_nick">{{ message.user.nickname }}</div>
-                    </div>
-                    <div class="chat_msg">{{ message.content }}</div>
-                    <span class="msg_time">{{ message.timestamp|date:'a g:i' }}</span>
-                    
-                    <br><br>
-                {% endfor %}
-            </div><br>
-            
-            <!-- CHAT INPUT -->
-            <div class="chat_input">
-                <!-- <ion-icon name="happy-outline"></ion-icon> -->
-                <!-- <ion-icon name="happy-outline"></ion-icon> -->
-                <input name="text_msg" id="chat-message-input" type="text">
-                <input id="chat-message-submit" type="button" value="Send">
-            </div>
-        </div>
+    <div id="content">
+        {% for room in room_list %}
+            <a href="{% url 'room' room.post_id room.buyer_id%}" class="nickname">
+                {% if user.nickname == room.seller.nickname %}
+                    {{ room.buyer.nickname }}
+                {% else %}
+                    {{ room.seller.nickname }}
+                {% endif %}
+            </a>
+            <div class="last_message">{{ room.last_content }}</div>
+        {% endfor %}
     </div>
+
+    <textarea id="chat-log" cols="100" rows="20">
+    {% for message in message_list %}
+        {{ message.user.nickname }}: {{ message.content }}   
+        {{ message.timestamp|date:'a g:i' }} 
+    {% endfor %}
+    </textarea><br>
+    <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-message-submit" type="button" value="Send">
     {{ post_id|json_script:"room-name" }}
 
-    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
@@ -183,7 +88,8 @@
                             if ($('.nickname').eq(idx).text() === '') {
                                 var nickname = document.createElement('a');
                                 nickname.setAttribute('class', 'nickname');
-                                
+                                nickname.href = '/chat/' + room['polling_post_id'] + '/' + room['polling_buyer_id']
+
                                 if ('{{ user.nickname }}' == room['seller_nickname']) {
                                     nickname.innerHTML = room['buyer_nickname'];
                                 } else {
@@ -194,7 +100,7 @@
                                 lastMsTag.setAttribute('class', 'last_message');
                                 lastMsTag.innerHTML = room['last_content'];
                     
-                                // contentTag.appendChild(nickname);
+                                contentTag.appendChild(nickname);
                                 contentTag.appendChild(lastMsTag); 
                             }
                         } else {
@@ -212,8 +118,5 @@
             
         }, 400); 
     </script> 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
-
