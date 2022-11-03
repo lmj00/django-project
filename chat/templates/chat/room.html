@@ -65,13 +65,24 @@
             <!-- chat -->
             <div id="chat-log">
                 {% for message in message_list %}
-                    <div class="chat_user">
-                        <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img">
-                        <div class="chat_user_nick">{{ message.user.nickname }}</div>
-                    </div>
-                    <div class="chat_msg">{{ message.content }}</div>
-                    <span class="msg_time">{{ message.timestamp|date:'a g:i' }}</span>
-                    <br>
+                    {% if message.user_id == user.id %}
+                        <div class="chat_user">
+                            <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img">
+                            <div class="chat_user_nick">{{ message.user.nickname }}@@@@@@</div>
+                        </div>
+                        <div class="chat_msg">{{ message.content }}</div>
+                        <span class="msg_time">{{ message.timestamp|date:'a g:i' }}</span>
+                        <br>
+                    {% else %}
+                        <div class="chat_user">
+                            <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img">
+                            <div class="chat_user_nick">{{ message.user.nickname }}</div>
+                        </div>
+                        <div class="chat_msg">{{ message.content }}</div>
+                        <span class="msg_time">{{ message.timestamp|date:'a g:i' }}</span>
+                        <br>
+                    {% endif %}
+
                 {% endfor %}
             </div>
                 
