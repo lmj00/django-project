@@ -60,6 +60,7 @@
       </div>
 
       <div class="post-meta">
+        <div class="title_line"></div>
         <h2 class="title">{{ post.title }}</h2>
         <div class="item-info">
           <div class="item-price {% if post.is_sold %}sold{% endif %}">{{ post.price|intcomma }}원</div>
@@ -70,6 +71,7 @@
           <div class="is-sold">거래완료</div>
         {% endif %}
       </div> 
+      <div class="content_line"></div>
       <div class="post_detail_buttons">
       {% if user.is_authenticated %}
         {% if user.id != post.author.id %}

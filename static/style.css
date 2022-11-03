@@ -484,6 +484,19 @@ body.with-background {
   text-overflow: ellipsis;
 }
 
+.post-detail .title_line {
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 30px;
+
+}
+
+.post-detail .content_line {
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 30px;
+
+}
+
+
 .post-detail .item-info {
   display: flex;
   align-items: center;
