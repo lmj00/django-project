@@ -355,7 +355,7 @@
     margin-bottom: -5px;
   } */
 
-  .chat-log {
+  #chat-log {
     position: relative;
     width: 100%;
     height: calc(100% - 137px);
