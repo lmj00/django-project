@@ -54,6 +54,12 @@
     background-color: #d9dbd5;
     opacity: 0.06;
   }
+
+  .main_content{
+    position: relative;
+    flex: 70%;
+    background: #fffdfa;
+  }
   
   .header {
     position: relative;
@@ -358,7 +364,7 @@
   #chat-log {
     position: relative;
     width: 100%;
-    height: calc(100% - 137px);
+    height: calc(100% - 115px);
     padding: 50px;
     overflow-y: auto;
     border: none;
