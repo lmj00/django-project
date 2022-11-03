@@ -1,32 +1,87 @@
-<!-- chat/templates/chat/room.html -->
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'room_style.css' %}">
 </head>
 <body>
-    <div id="content">
-        {% for room in room_list %}
-            <a href="{% url 'room' room.post_id room.buyer_id%}" class="nickname">
-                {% if user.nickname == room.seller.nickname %}
-                    {{ room.buyer.nickname }}
-                {% else %}
-                    {{ room.seller.nickname }}
-                {% endif %}
-            </a>
-            <div class="last_message">{{ room.last_content }}</div>
-        {% endfor %}
-    </div>
+    <div class="container">
+        <div class="leftSide">
+            <div class="header">
+                <div class="userimg">
+                    <img src="{% static 'assets/user.png' %}" alt="유저 이미지" class="cover">
+                </div>
+            </div>
+        
+            <div class="chatlist">
+                <div id="content">
+                    {% for room in room_list %}
+                        <div class="block unread">
+                            <div class="imgBox">
+                                <img src="{% static 'assets/user.png' %}" class="cover" alt="">
+                            </div>
+                            <div class="details">
+                                <div class="listHead">
+                                    <a href="{% url 'room' room.post_id room.buyer_id %}" class="nickname">
+                                        {% if user.nickname == room.seller.nickname %}
+                                            {{ room.buyer.nickname }}
+                                        {% else %}
+                                            {{ room.seller.nickname }}
+                                        {% endif %}
+                                    </a>
+                                    <p class="time"></p>
+                                </div>
+                                <div class="message">
+                                    <p><div id="content">
+                                        <div class="last_message">{{ room.last_content }}</div>
+                                    </div></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div> <!-- end content -->
+            </div> <!-- leftSide -->            
+        </div> <!-- end chatlist-->
 
-    <textarea id="chat-log" cols="100" rows="20">
-    {% for message in message_list %}
-        {{ message.user.nickname }}: {{ message.content }}   
-        {{ message.timestamp|date:'a g:i' }} 
-    {% endfor %}
-    </textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
+
+        <div class=" ">
+            <div class="header">
+                <div class="imgText">
+                    <div class="userimg">
+                        <img src="{{ user.profile_pic.url }}" alt="" class="cover">
+                    </div>
+                    <h4>닉네임<br>
+                        <span>online</span>
+                    </h4>
+                </div>
+                <ul class="nav_icons">
+                    <li><ion-icon name="search-outline"></ion-icon></li>
+                    <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
+                </ul>
+            </div> 
+        
+            <!-- chat -->
+            <div id="chat-log">
+                {% for message in message_list %}
+                    <div class="chat_user">
+                        <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img">
+                        <div class="chat_user_nick">{{ message.user.nickname }}</div>
+                    </div>
+                    <div class="chat_msg">{{ message.content }}</div>
+                    <span class="msg_time">{{ message.timestamp|date:'a g:i' }}</span>
+                    <br>
+                {% endfor %}
+            </div>
+                
+            <div class="chat_input">
+                <input name="text_msg" id="chat-message-input" type="text">
+                <input id="chat-message-submit" type="button" value="Send">
+            </div>
+        </div> <!-- end rightSide-->
+    </div> <!-- end container -->
+
     {{ post_id|json_script:"room-name" }}
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -43,7 +98,39 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n') ;
+            var chatLogTag = document.getElementById('chat-log');
+
+            // .chat_user
+            var chatUserTag = document.createElement('div');
+            var chatUserImg = document.createElement('img');
+            var nicknameTag = document.createElement('div');
+
+            var msgTag = document.createElement('div');
+            var timeTag = document.createElement('span');
+            var linebreak = document.createElement('br');
+            
+            /* .chat_user */
+            chatUserTag.setAttribute('class', 'chat_user');
+            nicknameTag.setAttribute('class', 'chat_user_nick');
+            chatUserImg.setAttribute('class', 'chat_user_img');
+            chatUserImg.setAttribute('src', '{{ user.profile_pic.url }}');
+
+            nicknameTag.innerHTML = '{{ user.nickname }}';
+
+            chatUserTag.appendChild(chatUserImg);
+            chatUserTag.appendChild(nicknameTag);
+            /* end .chat_user */
+
+            msgTag.setAttribute('class', 'chat_msg');
+            msgTag.innerHTML = data.message;
+
+            timeTag.setAttribute('span', 'msg_time');
+            timeTag.innerHTML = '';
+
+            chatLogTag.appendChild(chatUserTag);
+            chatLogTag.appendChild(msgTag);
+            chatLogTag.appendChild(linebreak);
+
         };
 
         chatSocket.onclose = function(e) {
@@ -51,7 +138,7 @@
         };
 
         document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
+        document.querySelector('#chat-message-input').onkeyup = function(e) {   
             if (e.keyCode === 13) {  // enter, return
                 document.querySelector('#chat-message-submit').click();
             }
@@ -116,7 +203,9 @@
                 }
             });
             
-        }, 400); 
+        }, 40000); 
     </script> 
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
