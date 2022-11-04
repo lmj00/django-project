@@ -456,6 +456,10 @@
   text-decoration: none;
 }
 
+#chat_href:link {
+  color: black;
+}
+
 #chat_href:visited {
   color: black;    
 }
