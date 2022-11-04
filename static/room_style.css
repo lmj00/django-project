@@ -371,7 +371,7 @@
     resize: none;
   }
 
-  .chat_msg {
+  .chat_msg_left {
     color: rgb(0, 0, 0);
     font-size: 15px;
     background-color: #d0e4ff;
@@ -382,6 +382,21 @@
     position: relative;
     display: inline-block;
     margin-left: 60px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+  }
+
+  .chat_msg_right {
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    background-color: #476bed;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: calc(100% - 70px);
+    text-align: right;    
+    position: relative;
+    display: inline-block;
+    margin-right: 60px;
     margin-top: 10px;
     margin-bottom: 50px;
   }
@@ -422,15 +437,22 @@
   margin-left: 10px;
 } */
 
-.msg_time{
+.msg_time_left{
   background-color: transparent;
   margin-left: 5px;
   font-size: 10px;
   
 }
 
+.msg_time_right{
+  background-color: transparent;
+  margin-right: 5px;
+  font-size: 10px;
+  
+}
 
-.chat_user_img{
+
+.chat_user_img_left{
   height: 50px;
   width: 50px;
 }
@@ -440,6 +462,22 @@
   margin-top: -60px;
   margin-left: 60px;
 }
+
+.chat_user_right{
+  text-align: right;
+}
+
+.chat_user_img_right{
+  height: 50px;
+  width: 50px;
+}
+
+.chat_user_nick_right{
+  text-align: right;
+  margin-top: -60px;
+  margin-right: 60px;
+}
+
 
   /*room list css*/
 

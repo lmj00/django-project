@@ -66,20 +66,22 @@
             <div id="chat-log">
                 {% for message in message_list %}
                     {% if message.user_id == user.id %}
-                        <div class="chat_user">
-                            <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img">
-                            <div class="chat_user_nick">{{ message.user.nickname }}@@@@@@</div>
+                        <div class="chat_user_right">
+                            <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img_right">
+                            <div class="chat_user_nick_right">{{ message.user.nickname }}(나)</div>
+                            <span class="msg_time_right">{{ message.timestamp|date:'a g:i' }}</span>
+                            <div class="chat_msg_right">{{ message.content }}</div>
                         </div>
-                        <div class="chat_msg">{{ message.content }}</div>
-                        <span class="msg_time">{{ message.timestamp|date:'a g:i' }}</span>
+                            
                         <br>
                     {% else %}
-                        <div class="chat_user">
-                            <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img">
+                        <div class="chat_user_left">
+                            <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img_left">
                             <div class="chat_user_nick">{{ message.user.nickname }}</div>
+                            <div class="chat_msg_left">{{ message.content }}</div>
+                            <span class="msg_time_left">{{ message.timestamp|date:'a g:i' }}</span>
                         </div>
-                        <div class="chat_msg">{{ message.content }}</div>
-                        <span class="msg_time">{{ message.timestamp|date:'a g:i' }}</span>
+                        
                         <br>
                     {% endif %}
 
@@ -87,7 +89,7 @@
             </div>
                 
             <div class="chat_input">
-                <input name="text_msg" id="chat-message-input" type="text">
+                <input name="text_msg" id="chat-message-input" type="text" placeholder="Message">
                 <input id="chat-message-submit" type="button" value="Send">
             </div>
         </div> <!-- end rightSide-->
