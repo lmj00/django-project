@@ -71,7 +71,6 @@
                 {% for message in message_list %}
                     {% if message.user_id == user.id %}
                         <div class="chat_user_right">
-                            
                             <span class="msg_time_right">{{ message.timestamp|date:'a g:i' }}</span>
                             <div class="chat_msg_right">{{ message.content }}</div>
                         </div>
@@ -123,13 +122,29 @@
             var msgTag = document.createElement('div');
             var linebreak = document.createElement('br');
             
+            // time
+            const date = new Date();
+            const hours = date.getHours();
+            const minutes = ('0' + date.getMinutes()).slice(-2);
+            let time = '';
+
+            if (hours < 12) {
+                time = '오전 ' + hours + ':' + minutes;
+            } else {
+                time = '오후 ' + hours % 12 + ':' + minutes;
+            }
+
             if (data['nickname'] == '{{ user.nickname }}') {
                 chatUserTag.setAttribute('class', 'chat_user_right');
                 nicknameTag.setAttribute('class', 'chat_user_nick_right');
-                timeTag.setAttribute('span', 'msg_time_right');
+                timeTag.setAttribute('class', 'msg_time_right');
                 msgTag.setAttribute('class', 'chat_msg_right');
+
+                timeTag.innerHTML = time;
                 msgTag.innerHTML = data.message;
-                timeTag.innerHTML = '';
+
+                chatUserTag.appendChild(timeTag);
+                chatUserTag.appendChild(msgTag);
             } 
             
             if (data['nickname'] != '{{ user.nickname }}') {
@@ -138,21 +153,22 @@
                 chatUserImg.setAttribute('class', 'chat_user_img_left');
                 chatUserImg.setAttribute('src', '{{ user.profile_pic.url }}');
                 nicknameTag.setAttribute('class', 'chat_user_nick');
-                timeTag.setAttribute('span', 'msg_time_left');
                 msgTag.setAttribute('class', 'chat_msg_left');
-                msgTag.innerHTML = data.message;
-                nicknameTag.innerHTML = data['nickname'];
-                timeTag.innerHTML = '';
-            }
+                timeTag.setAttribute('class', 'msg_time_left');
 
-            chatUserTag.appendChild(chatUserImg);
-            chatUserTag.appendChild(nicknameTag);
-            chatUserTag.appendChild(timeTag);
-            chatUserTag.appendChild(msgTag);
+                nicknameTag.innerHTML = data['nickname'];
+                msgTag.innerHTML = data.message;
+                timeTag.innerHTML = time;
+
+                chatUserTag.appendChild(chatUserImg);
+                chatUserTag.appendChild(nicknameTag);
+                chatUserTag.appendChild(msgTag);
+                chatUserTag.appendChild(timeTag);
+            }
+            
             chatLogTag.appendChild(chatUserTag);
             chatLogTag.appendChild(linebreak);
             
-
         };
 
         chatSocket.onclose = function(e) {
