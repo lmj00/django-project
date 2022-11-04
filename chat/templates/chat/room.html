@@ -50,8 +50,9 @@
             <div class="header">
                 <div class="imgText">
                     <div class="userimg">
-                        <img src="{{ user.profile_pic.url }}" alt="" class="cover">
-                    </div>
+                        <div class="userimg">
+                            <img src="{{ user.profile_pic.url }}" alt="" class="cover">
+                        </div>                 
                     <h4>닉네임<br>
                         <span>online</span>
                     </h4>
@@ -122,8 +123,6 @@
             
             if (data['nickname'] == '{{ user.nickname }}') {
                 chatUserTag.setAttribute('class', 'chat_user_right');
-                chatUserImg.setAttribute('class', 'chat_user_img_right');
-                chatUserImg.setAttribute('src', '{{ user.profile_pic.url }}');
                 nicknameTag.setAttribute('class', 'chat_user_nick_right');
                 timeTag.setAttribute('span', 'msg_time_right');
                 msgTag.setAttribute('class', 'chat_msg_right');
