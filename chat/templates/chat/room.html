@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'room_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'chat/styles/room_style.css' %}">
 </head>
 <body>
     <div class="container">
@@ -18,28 +18,28 @@
             <div class="chatlist">
                 <div id="content">
                     {% for room in room_list %}
-                        <div class="block unread">
-                            <div class="imgBox">
-                                <img src="{% static 'assets/user.png' %}" class="cover" alt="">
-                            </div>
-                            <div class="details">
-                                <div class="listHead">
-                                    <a href="{% url 'room' room.post_id room.buyer_id %}" class="nickname">
-                                        {% if user.nickname == room.seller.nickname %}
-                                            {{ room.buyer.nickname }}
-                                        {% else %}
-                                            {{ room.seller.nickname }}
-                                        {% endif %}
-                                    </a>
-                                    <p class="time"></p>
+                        <a href="{% url 'room' room.post_id room.buyer_id %}" id="chat_href">
+                            <div class="block unread">
+                                <div class="imgBox">
+                                    <img src="{% static 'assets/user.png' %}" class="cover" alt="">
                                 </div>
-                                <div class="message">
-                                    <p><div id="content">
-                                        <div class="last_message">{{ room.last_content }}</div>
-                                    </div></p>
+                                <div class="details">
+                                    <div class="listHead">
+                                            {% if user.nickname == room.seller.nickname %}
+                                                {{ room.buyer.nickname }}
+                                            {% else %}
+                                                {{ room.seller.nickname }}
+                                            {% endif %}
+                                        <p class="time"></p>
+                                    </div>
+                                    <div class="message">
+                                        <p><div id="content">
+                                            <div class="last_message">{{ room.last_content }}</div>
+                                        </div></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     {% endfor %}
                 </div> <!-- end content -->
             </div> <!-- leftSide -->            
@@ -68,7 +68,7 @@
                     {% if message.user_id == user.id %}
                         <div class="chat_user_right">
                             <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img_right">
-                            <div class="chat_user_nick_right">{{ message.user.nickname }}(나)</div>
+                            <div class="chat_user_nick_right">{{ message.user.nickname }}</div>
                             <span class="msg_time_right">{{ message.timestamp|date:'a g:i' }}</span>
                             <div class="chat_msg_right">{{ message.content }}</div>
                         </div>
