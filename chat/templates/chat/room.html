@@ -11,7 +11,9 @@
         <div class="leftSide">
             <div class="header">
                 <div class="userimg">
-                    <img src="{% static 'assets/user.png' %}" alt="유저 이미지" class="cover">
+                    <a href="{% url 'index' %}">
+                        <img src="{% static 'assets/home.png' %}" alt="home" class="cover">
+                    </a>
                 </div>
             </div>
         
@@ -49,11 +51,12 @@
         <div class="main_content">
             <div class="header">
                 <div class="imgText">
-                    <div class="userimg">
                         <div class="userimg">
                             <img src="{{ user.profile_pic.url }}" alt="" class="cover">
                         </div>                 
-                    <h4>닉네임<br>
+                        {% for room in room_list %}
+                        <h4>{{ room.seller.nickname }}<br>
+                        {% endfor %}
                         <span>online</span>
                     </h4>
                 </div>
@@ -68,8 +71,7 @@
                 {% for message in message_list %}
                     {% if message.user_id == user.id %}
                         <div class="chat_user_right">
-                            <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img_right">
-                            <div class="chat_user_nick_right">{{ message.user.nickname }}</div>
+                            
                             <span class="msg_time_right">{{ message.timestamp|date:'a g:i' }}</span>
                             <div class="chat_msg_right">{{ message.content }}</div>
                         </div>
@@ -150,6 +152,7 @@
             chatUserTag.appendChild(msgTag);
             chatLogTag.appendChild(chatUserTag);
             chatLogTag.appendChild(linebreak);
+            
 
         };
 
@@ -225,6 +228,11 @@
             
         }, 40000); 
     </script> 
+
+    <script>
+        $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
+    </script>
+
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>

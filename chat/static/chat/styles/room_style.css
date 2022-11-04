@@ -384,7 +384,7 @@
     display: inline-block;
     margin-left: 60px;
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
   }
 
   .chat_msg_right {
@@ -399,7 +399,7 @@
     display: inline-block;
     margin-right: 60px;
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
   }
 
   #chat-message-submit {
@@ -481,11 +481,6 @@
 
 .chat_user_right{
   text-align: right;
-}
-
-.chat_user_img_right{
-  height: 50px;
-  width: 50px;
 }
 
 .chat_user_nick_right{
