@@ -72,7 +72,6 @@
                             <span class="msg_time_right">{{ message.timestamp|date:'a g:i' }}</span>
                             <div class="chat_msg_right">{{ message.content }}</div>
                         </div>
-                            
                         <br>
                     {% else %}
                         <div class="chat_user_left">
@@ -81,7 +80,6 @@
                             <div class="chat_msg_left">{{ message.content }}</div>
                             <span class="msg_time_left">{{ message.timestamp|date:'a g:i' }}</span>
                         </div>
-                        
                         <br>
                     {% endif %}
 
@@ -111,37 +109,47 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
+
             var chatLogTag = document.getElementById('chat-log');
 
             // .chat_user
             var chatUserTag = document.createElement('div');
             var chatUserImg = document.createElement('img');
             var nicknameTag = document.createElement('div');
-
-            var msgTag = document.createElement('div');
             var timeTag = document.createElement('span');
+            var msgTag = document.createElement('div');
             var linebreak = document.createElement('br');
             
-            /* .chat_user */
-            chatUserTag.setAttribute('class', 'chat_user');
-            nicknameTag.setAttribute('class', 'chat_user_nick');
-            chatUserImg.setAttribute('class', 'chat_user_img');
-            chatUserImg.setAttribute('src', '{{ user.profile_pic.url }}');
-
-            nicknameTag.innerHTML = '{{ user.nickname }}';
+            if (data['nickname'] == '{{ user.nickname }}') {
+                chatUserTag.setAttribute('class', 'chat_user_right');
+                chatUserImg.setAttribute('class', 'chat_user_img_right');
+                chatUserImg.setAttribute('src', '{{ user.profile_pic.url }}');
+                nicknameTag.setAttribute('class', 'chat_user_nick_right');
+                timeTag.setAttribute('span', 'msg_time_right');
+                msgTag.setAttribute('class', 'chat_msg_right');
+                msgTag.innerHTML = data.message;
+                nicknameTag.innerHTML = data['nickname'];
+                timeTag.innerHTML = '';
+            } 
+            
+            if (data['nickname'] != '{{ user.nickname }}') {
+                /* .chat_user_left */
+                chatUserTag.setAttribute('class', 'chat_user_left');
+                chatUserImg.setAttribute('class', 'chat_user_img_left');
+                chatUserImg.setAttribute('src', '{{ user.profile_pic.url }}');
+                nicknameTag.setAttribute('class', 'chat_user_nick');
+                timeTag.setAttribute('span', 'msg_time_left');
+                msgTag.setAttribute('class', 'chat_msg_left');
+                msgTag.innerHTML = data.message;
+                nicknameTag.innerHTML = data['nickname'];
+                timeTag.innerHTML = '';
+            }
 
             chatUserTag.appendChild(chatUserImg);
             chatUserTag.appendChild(nicknameTag);
-            /* end .chat_user */
-
-            msgTag.setAttribute('class', 'chat_msg');
-            msgTag.innerHTML = data.message;
-
-            timeTag.setAttribute('span', 'msg_time');
-            timeTag.innerHTML = '';
-
+            chatUserTag.appendChild(timeTag);
+            chatUserTag.appendChild(msgTag);
             chatLogTag.appendChild(chatUserTag);
-            chatLogTag.appendChild(msgTag);
             chatLogTag.appendChild(linebreak);
 
         };
