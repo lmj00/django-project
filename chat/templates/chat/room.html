@@ -100,13 +100,15 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
-
+        const post_id = JSON.parse('{{ post_id }}');
+        const buyer_id = JSON.parse('{{ buyer_id }}');
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
             + '/ws/chat/'
-            + roomName
+            + post_id
+            + '/'
+            + buyer_id
             + '/'
         );
 
