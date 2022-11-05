@@ -22,8 +22,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         Room.objects.filter(id=room.id).update(last_content=message)
 
     async def connect(self):
-        self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_group_name = 'chat_%s' % self.room_name
+        self.post_id = self.scope['url_route']['kwargs']['post_id'] 
+        self.buyer_id = self.scope['url_route']['kwargs']['buyer_id'] 
+        self.room_group_name = 'chat_%s_%s' % (self.post_id, self.buyer_id)
 
         # Join room group
         await self.channel_layer.group_add(
