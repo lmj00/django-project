@@ -10,9 +10,9 @@
     <div class="container">
         <div class="leftSide">
             <div class="header">
-                <div class="userimg">
+                <div class="room_userimg">
                     <a href="{% url 'index' %}">
-                        <img src="{% static 'assets/home.png' %}" alt="home" class="cover">
+                        <img src="{% static 'assets/salt_logo.svg' %}" alt="home" class="cover">
                     </a>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                             <img src="{{ user.profile_pic.url }}" alt="" class="cover">
                         </div>                 
                         {% for room in room_list %}
-                        <h4>{{ room.seller.nickname }}<br>
+                        <h4>{{ user.nickname }}<br>
                         {% endfor %}
                         <span>online</span>
                     </h4>
@@ -90,7 +90,8 @@
                 
             <div class="chat_input">
                 <input name="text_msg" id="chat-message-input" type="text" placeholder="Message">
-                <input id="chat-message-submit" type="button" value="Send">
+                <!-- <input id="chat-message-submit" type="button" value="Send"> -->
+                <input id="chat-message-submit" type="image" src="{% static 'assets/send.png' %}" value="Send">
             </div>
         </div> <!-- end rightSide-->
     </div> <!-- end container -->

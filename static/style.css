@@ -907,8 +907,12 @@ body.with-background {
 }
 
 .write_btn .link > span {
-  font-family: 'Spoqa Han Sans Neo', sans-serif;;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-size: 18px;
+  color: #476bed;
 }
+
+
 
 
 /* signup_position */

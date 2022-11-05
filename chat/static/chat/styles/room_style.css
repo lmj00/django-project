@@ -80,7 +80,15 @@
     border-radius: 50%;
     cursor: pointer;
   }
-  
+
+  .room_userimg {
+    position: relative;
+    width: 90px;
+    height: 65px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
   .cover {
     position: absolute;
     top: 0;
@@ -408,7 +416,7 @@
     color: #000000;
     border: none;
     border-radius: 15px;
-    font-size: 15px;
+    font-size: 20px;
 
   }
 /*   
