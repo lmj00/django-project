@@ -52,12 +52,20 @@
             <div class="header">
                 <div class="imgText">
                         <div class="userimg">
-                            <img src="{{ user.profile_pic.url }}" alt="" class="cover">
+                            {% if user.id == buyer.id %}
+                                <img src="{{ post.author.profile_pic.url }}" alt="" class="cover">
+                            {% else %}
+                                <img src="{{ buyer.profile_pic.url }}" alt="" class="cover">
+                            {% endif %}
                         </div>                 
-                        {% for room in room_list %}
-                        <h4>{{ user.nickname }}<br>
-                        {% endfor %}
-                        <span>online</span>
+                        <h4>
+                            {% if user.id == buyer.id %}
+                                {{ post.author.nickname }}
+                            {% else %}
+                                {{ buyer.nickname }}
+                            {% endif %}
+                            <br>
+                        <!-- <span>online</span> -->
                     </h4>
                 </div>
                 <ul class="nav_icons">
@@ -95,13 +103,12 @@
             </div>
         </div> <!-- end rightSide-->
     </div> <!-- end container -->
-
     {{ post_id|json_script:"room-name" }}
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        const post_id = JSON.parse('{{ post_id }}');
-        const buyer_id = JSON.parse('{{ buyer_id }}');
+        const post_id = JSON.parse('{{ post.id }}');
+        const buyer_id = JSON.parse('{{ buyer.id }}');
         const chatSocket = new WebSocket(
             'ws://'
             + window.location.host
@@ -190,8 +197,8 @@
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
                 'message': message,
-                'post_id': {{ post_id }},
-                'buyer_id': {{ buyer_id }}
+                'post_id': {{ post.id }},
+                'buyer_id': {{ buyer.id }}
             }));
             messageInputDom.value = '';
         };
@@ -244,7 +251,7 @@
                 }
             });
             
-        }, 40000); 
+        }, 400); 
     </script> 
 
     <script>
