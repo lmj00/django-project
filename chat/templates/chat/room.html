@@ -85,7 +85,11 @@
                         <br>
                     {% else %}
                         <div class="chat_user_left">
-                            <img src="{{ user.profile_pic.url }}" alt="" class="chat_user_img_left">
+                            {% if user.id == buyer.id %}
+                                <img src="{{ post.author.profile_pic.url }}" alt="" class="chat_user_img_left">
+                            {% else %}
+                                <img src="{{ buyer.profile_pic.url }}" alt="" class="chat_user_img_left">
+                            {% endif %}
                             <div class="chat_user_nick">{{ message.user.nickname }}</div>
                             <div class="chat_msg_left">{{ message.content }}</div>
                             <span class="msg_time_left">{{ message.timestamp|date:'a g:i' }}</span>
@@ -163,8 +167,13 @@
             if (data['nickname'] != '{{ user.nickname }}') {
                 /* .chat_user_left */
                 chatUserTag.setAttribute('class', 'chat_user_left');
+                if ('{{ user.id }}' == '{{ buyer.id }}') {
+                    chatUserImg.setAttribute('src', '{{ post.author.profile_pic.url }}')
+                } else {
+                    chatUserImg.setAttribute('src', '{{ buyer.profile_pic.url }}')
+                }
                 chatUserImg.setAttribute('class', 'chat_user_img_left');
-                chatUserImg.setAttribute('src', '{{ user.profile_pic.url }}');
+
                 nicknameTag.setAttribute('class', 'chat_user_nick');
                 msgTag.setAttribute('class', 'chat_msg_left');
                 timeTag.setAttribute('class', 'msg_time_left');
