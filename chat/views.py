@@ -1,5 +1,5 @@
-from tabnanny import check
 from django.shortcuts import render
+from member.models import User
 from shop.models import Post
 from chat.models import Message, Room
 from django.db.models import Q
@@ -12,7 +12,7 @@ from django.http import JsonResponse
 def room(request, post_id, buyer_id): 
     post = Post.objects.get(id=post_id)
     user_id = request.user.id
-
+    buyer = User.objects.get(id=buyer_id)
     if request.user.id != buyer_id and request.user.id != post.author.id:
         raise Http404
 
@@ -32,9 +32,10 @@ def room(request, post_id, buyer_id):
     else:
         message = ""
 
+    
     return render(request, 'chat/room.html', {
-        'post_id': post_id, 
-        'buyer_id': buyer_id,
+        'post': post,
+        'buyer': buyer,
         'message_list': message,
         'room_list': room_list
     })
