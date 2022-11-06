@@ -98,8 +98,7 @@
                 
             <div class="chat_input">
                 <input name="text_msg" id="chat-message-input" type="text" placeholder="Message">
-                <!-- <input id="chat-message-submit" type="button" value="Send"> -->
-                <input id="chat-message-submit" type="image" src="{% static 'assets/send.png' %}" value="Send">
+                <input id="chat-message-submit" type="button" value="Send">
             </div>
         </div> <!-- end rightSide-->
     </div> <!-- end container -->
@@ -140,8 +139,10 @@
 
             if (hours < 12) {
                 time = '오전 ' + hours + ':' + minutes;
+                $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
             } else {
                 time = '오후 ' + hours % 12 + ':' + minutes;
+                $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
             }
 
             if (data['nickname'] == '{{ user.nickname }}') {
@@ -155,6 +156,8 @@
 
                 chatUserTag.appendChild(timeTag);
                 chatUserTag.appendChild(msgTag);
+
+                $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
             } 
             
             if (data['nickname'] != '{{ user.nickname }}') {
@@ -174,11 +177,14 @@
                 chatUserTag.appendChild(nicknameTag);
                 chatUserTag.appendChild(msgTag);
                 chatUserTag.appendChild(timeTag);
+
+                $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
             }
             
             chatLogTag.appendChild(chatUserTag);
             chatLogTag.appendChild(linebreak);
             
+            $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
         };
 
         chatSocket.onclose = function(e) {
