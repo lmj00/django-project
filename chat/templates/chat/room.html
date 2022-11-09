@@ -24,7 +24,7 @@
                             <div class="block unread">
                                 <div class="imgBox">
                                     {% if user.id == room.buyer.id %}
-                                        <img src="{{ post.author.profile_pic.url }}" class="cover">
+                                        <img src="{{ room.seller.profile_pic.url }}" class="cover">
                                     {% else %}
                                         <img src="{{ room.buyer.profile_pic.url }}" class="cover">
                                     {% endif %}
