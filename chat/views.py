@@ -68,9 +68,11 @@ def polling(request):
             {
                 'last_content': room.last_content,
                 'polling_post_id': room.post_id,
-                'buyer_nickname': room.buyer.nickname,
                 'polling_buyer_id': room.buyer_id,
-                'seller_nickname': room.seller.nickname
+                'buyer_nickname': room.buyer.nickname,
+                'polling_buyer_img': room.buyer.profile_pic.url,
+                'seller_nickname': room.seller.nickname,
+                'polling_seller_img': room.seller.profile_pic.url
             }
         )
 
