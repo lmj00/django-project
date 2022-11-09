@@ -23,7 +23,11 @@
                         <a href="{% url 'room' room.post_id room.buyer_id %}" id="chat_href">
                             <div class="block unread">
                                 <div class="imgBox">
-                                    <img src="{% static 'assets/user.png' %}" class="cover" alt="">
+                                    {% if user.id == room.buyer.id %}
+                                        <img src="{{ post.author.profile_pic.url }}" class="cover">
+                                    {% else %}
+                                        <img src="{{ room.buyer.profile_pic.url }}" class="cover">
+                                    {% endif %}
                                 </div>
                                 <div class="details">
                                     <div class="listHead">
