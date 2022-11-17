@@ -19,52 +19,48 @@
                     <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
                 </ul>
             </div>
-            
-            <!-- CHAT LIST -->
+                
             <div class="chatlist">
-                {% for room in room_list %}
-                <div class="block unread">
-                    <div class="imgBox">
-                        <img src="{% static 'assets/user.png' %}" class="cover" alt="">
-                    </div>
-                    <div class="details">
-                        <div class="listHead">
-                            <a href="{% url 'room' room.post_id room.buyer_id %}">
-                                {% if user.id == room.post.author.id %}
-                                    {{ room.buyer.nickname }}
-                                {% else %}
-                                    {{ room.seller.nickname }}        
-                                {% endif %}
-                            </a> 
-                        </div>
-                        <div class="message">
-                            <p><div id="content">
-                            </div></p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+                <div id="content">
+                    {% for room in room_list %}
+                        <a href="{% url 'room' room.post_id room.buyer_id %}" id="chat_href">
+                            <div class="block unread">
+                                <div class="imgBox">
+                                    {% if user.id == room.buyer.id %}
+                                        <img src="{{ room.seller.profile_pic.url }}" class="cover">
+                                    {% else %}
+                                        <img src="{{ room.buyer.profile_pic.url }}" class="cover">
+                                    {% endif %}
+                                </div>
+                                <div class="details">
+                                    <div class="listHead">
+                                        {% if user.nickname == room.seller.nickname %}
+                                            <div class="nickname">{{ room.buyer.nickname }}</div>
+                                        {% else %}
+                                            <div class="nickname">{{ room.seller.nickname }}</div>
+                                        {% endif %}
+                                        <p class="time"></p>
+                                    </div>
+                                    <div class="message">
+                                        <p>
+                                            <div class="last_message">{{ room.last_content }}</div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div> <!-- end content -->
+            </div> <!-- end chatlist-->
+        </div> <!-- end leftSide -->
+
         <div class="rightSide">
             <div class="header">
-                <div class="imgText">
-                    <div class="userimg">
-                        <img src="{% static 'assets/user2.jpg' %}" alt="" class="cover">
-                    </div>
-                    {% for room in room_list %}
-                    <h4>{{ room.buyer.nickname }} <br><span>online</span></h4>
-                    {% endfor %}
-                </div>
                 <ul class="nav_icons">
                     <li><ion-icon name="search-outline"></ion-icon></li>
                     <li><ion-icon name="ellipsis-vertical"></ion-icon></li>
                 </ul>
             </div>
-
-            <!-- CHAT-BOX -->
-            
-
             <div class="chat-log">
                 <div class="chat_list_intro">   
                     <img src="{% static 'assets/page_none.png' %}" class="chat_list_img" alt="">    
@@ -81,30 +77,98 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    var polling = setInterval(function (){
-        var message = document.getElementsByClassName('message')
+    var polling = setInterval(function(){
+            
+        var message = document.getElementsByClassName('last_message')
         var last_message = []
-
+        
         for (var i = 0; i < message.length; i++) {
             last_message.push(message[i].textContent);
         }
-        
-        $.ajax({
+
+        $.ajax({    
             type: 'GET',
-            url: 'polling/',
+            url: '/chat/polling',   
             data: {'last_message': last_message}, 
             success: function (data) { 
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i] != '') {
-                        $('.message').eq(i).text(data[i]);
-                    }
-                    
-                }
+                data.forEach(function(room, idx){
+                    if (last_message.length !== data.length) {
+                        if ($('.nickname').eq(idx).text() === '') {
+                            var chat = document.createElement('a');
+                            chat.href = '/chat/' + chat['polling_post_id'] + '/' + chat['polling_buyer_id'];
+                            chat.setAttribute('id', 'chat_href');
 
+                            var blockUnread = document.createElement('div');
+                            blockUnread.setAttribute('class', 'block unread');
+
+                            var imgBox = document.createElement('div');
+                            imgBox.setAttribute('class', 'imgBox');
+
+                            var imgBoxSrc = document.createElement('img');
+                            if ('{{ user.nickname }}' == room['buyer_nickname']) {
+                                imgBoxSrc.setAttribute('src', room['polling_buyer_img']);
+                            } else {
+                                imgBoxSrc.setAttribute('src', room['polling_seller_img']);
+                            }
+                            imgBoxSrc.setAttribute('class', 'cover');
+
+                            var details = document.createElement('div');
+                            details.setAttribute('class', 'details');
+
+                            var listHead = document.createElement('div');
+                            listHead.setAttribute('class', 'listHead');
+
+                            var nickname = document.createElement('div');
+                            nickname.setAttribute('class', 'nickname');
+
+                            if ('{{ user.nickname }}' == room['seller_nickname']) {
+                                nickname.innerHTML = room['buyer_nickname'];
+                            } else {
+                                nickname.innerHTML = room['seller_nickname'];
+                            }
+
+                            var message = document.createElement('div');
+                            message.setAttribute('class', 'message');
+                            
+                            var lastMessage = document.createElement('div');
+                            lastMessage.setAttribute('class', 'last_message');
+                            lastMessage.innerHTML = room['last_content'];
+
+                            var p = document.createElement('p');
+                            var p2 = document.createElement('p');
+
+                            message.appendChild(p);
+                            message.appendChild(lastMessage);
+                            message.appendChild(p2);
+
+                            listHead.appendChild(nickname);
+                            
+                            details.appendChild(listHead);
+                            details.appendChild(message);
+
+                            imgBox.appendChild(imgBoxSrc);
+
+                            blockUnread.appendChild(imgBox);
+                            blockUnread.appendChild(details);
+                            
+                            chat.appendChild(blockUnread);
+
+                            var contentTag = document.getElementById('content')
+                            contentTag.appendChild(chat);
+                        }
+                    } else {
+                        if (room['last_content'] != last_message[idx]) {
+                            $('.last_message').eq(idx).text(room['last_content']);     
+                        }   
+                    }
+                });
             },
+
             error: function(request, status, error){
                 alert(error);
             }
         });
-    }, 400);
+        
+    }, 2000); 
+</script> 
 </script>
