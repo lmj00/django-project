@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '1w_hq@f2wn-g3#kouz@wd@0$g@6v7vxi+kri4g!bf_m8dyo6#0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['sogeum.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -188,7 +188,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [('REDIS_URL', 'redis://localhost:6379')]
         },
     },
 }
