@@ -250,9 +250,9 @@
 
                                 var imgBoxSrc = document.createElement('img');
                                 if ('{{ user.nickname }}' == room['buyer_nickname']) {
-                                    imgBoxSrc.setAttribute('src', room['polling_buyer_img']);
-                                } else {
                                     imgBoxSrc.setAttribute('src', room['polling_seller_img']);
+                                } else {
+                                    imgBoxSrc.setAttribute('src', room['polling_buyer_img']);
                                 }
                                 imgBoxSrc.setAttribute('class', 'cover');
 
