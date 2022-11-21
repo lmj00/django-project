@@ -223,7 +223,6 @@
         };
 
         var polling = setInterval(function(){
-            
             var message = document.getElementsByClassName('last_message')
             var last_message = []
             
@@ -240,7 +239,7 @@
                         if (last_message.length !== data.length) {
                             if ($('.nickname').eq(idx).text() === '') {
                                 var chat = document.createElement('a');
-                                chat.href = '/chat/' + chat['polling_post_id'] + '/' + chat['polling_buyer_id'];
+                                chat.href = '/chat/' + room['polling_post_id'] + '/' + room['polling_buyer_id'];
                                 chat.setAttribute('id', 'chat_href');
 
                                 var blockUnread = document.createElement('div');
@@ -314,7 +313,7 @@
                 }
             });
             
-        }, 2000); 
+        }, 500); 
     </script> 
 
     <script>
