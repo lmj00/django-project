@@ -144,9 +144,12 @@
             const hours = date.getHours();
             const minutes = ('0' + date.getMinutes()).slice(-2);
             let time = '';
-
             if (hours < 12) {
-                time = '오전 ' + hours + ':' + minutes;
+                if (hours == 0) {
+                    time = '오전 ' + '12:' + minutes;
+                } else {
+                    time = '오전 ' + hours + ':' + minutes;
+                }
                 $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
             } else {
                 time = '오후 ' + hours % 12 + ':' + minutes;
