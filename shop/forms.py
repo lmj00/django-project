@@ -8,6 +8,7 @@ class PostCreateForm(forms.ModelForm):
             'title',
             'content',
             'price',
+            'category',
             'image1',
             'image2',
             'image3'
@@ -21,6 +22,7 @@ class PostUpdateForm(forms.ModelForm):
             'title',
             'content',
             'price',
+            'category',
             'image1',
             'image2',
             'image3',
