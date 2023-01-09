@@ -26,9 +26,19 @@ class Post(models.Model):
     
     is_sold = models.BooleanField(default=False)
 
-    """ 
-    카테고리 추가 예정
-    """
+    CATEGROY_CHOICES = [
+        ('디지털/가전', '디지털/가전'),
+        ('가구/인테리어', '가구/인테리어'),
+        ('생활/가공식품', '생활/가공식품'),
+        ('뷰티/미용', '뷰티/미용'),
+        ('패션/잡화', '패션/잡화'),
+        ('게임/스포츠', '게임/스포츠'),
+        ('반려동물용품', '반려동물용품'),
+        ('기타', '기타'),
+    ]
+
+    category = models.CharField(max_length=20, choices=CATEGROY_CHOICES)
+    
 
     def __str__(self):
         return self.title
