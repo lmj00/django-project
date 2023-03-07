@@ -3,22 +3,22 @@ from . import views
 
 urlpatterns = [ 
     path(
-        'popup_address/',  
+        'popup-address/',  
         views.popupAddress, 
-        name='popup_address'
+        name='popup-address'
     ),
     path(
-        'popup_address/test', 
-        views.test, 
-        name='test'
+        'popup-address/validator', 
+        views.popupAddressValidator, 
+        name='popup-validator'
     ),
     path(
-        'signup/addrCheck',
-        views.signupAddressCheck, 
-        name='address_check'
+        'address-validator',
+        views.signupAddressValidator, 
+        name='signup-address-validatror'
     ),
     path(
-        'users/<int:user_id>/',
+        '<int:user_id>/',
         views.ProfileView.as_view(),
         name='profile'
     ),

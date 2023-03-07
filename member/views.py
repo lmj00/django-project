@@ -25,7 +25,7 @@ def popupAddress(request):
 
 @csrf_exempt
 @require_POST
-def test(request):   
+def popupAddressValidator(request):   
     jsonObject = json.loads(request.body)
     if jsonObject.get('sessionLatlng') is not None:
         request.session['lat'] = jsonObject.get('sessionLatlng').split(' ')[0]
@@ -46,7 +46,7 @@ def test(request):
     
 @csrf_exempt
 @require_POST
-def signupAddressCheck(request):
+def signupAddressValidator(request):
     if request.method == 'POST':
         jsonObject = json.loads(request.body)
 

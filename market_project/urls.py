@@ -28,7 +28,7 @@ urlpatterns = [
     path('', include('shop.urls')),
     
     # member
-    path('', include('member.urls')),
+    path('member/', include('member.urls')),
 
     # allauth
     path(
