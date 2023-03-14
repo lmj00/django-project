@@ -3,7 +3,7 @@
 
 
 ## 알게된 점
-- 웹에서는 geolocation으로 사용자의 IP로 위치를 찾기 때문에 정확성이 떨어진다. 따라서 위치기반은 GPS가 있는 모바일 서비스에 적합하다.
+- 웹에서는 geolocation으로 사용자의 IP로 위치를 찾기 때문에 정확성이 떨어진다. 따라서 위치기반은 웹보다는 GPS가 있는 모바일 서비스에 적합하다.
 - 거리는 위도와 경도를 통해 계산된다.
 - 채팅은 소켓을 통해서 구현된다. 
 
@@ -35,13 +35,16 @@
 
 ## 주요 기능
 - 회원가입 시 주소 선택
-- 위도와 경도를 localStorage에 저장하여 값을 넘김
+- csv 파일로 db에 20551개의 법정동 데이터를 넣어 유효성 검사
 ![image](https://user-images.githubusercontent.com/54443194/222471244-3bca2f93-092d-4ded-adad-0b1f5cfb7ab7.png)
 
 <br>
 
 - 거리 조절
+![image](https://user-images.githubusercontent.com/54443194/224852596-7695614d-55c3-41c1-bba3-8c8fb48c8882.png)
 
+- (서울 성동구 행당동)의 아이디로 거리 조절을 했을 때
+![image](https://user-images.githubusercontent.com/54443194/224852869-99ae8995-5baf-4dff-b14b-58c78d8ecccc.png)
 
 <br>
 
